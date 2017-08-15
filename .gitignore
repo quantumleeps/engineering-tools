@@ -16,4 +16,4 @@ env/
 # Bundler binstubs
 /bin/
 
-.vscode
+.vscode/
