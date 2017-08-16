@@ -14,7 +14,7 @@ class System(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     systemNumber = models.IntegerField(default=0)
-    systemCode = models.CharField(max_length=4)
+    systemCode = models.CharField(max_length=40)
     
     def __str__(self):
         return self.systemCode
