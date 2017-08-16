@@ -5,7 +5,7 @@ from django.db import models
 class Project(models.Model):
     name = models.CharField(max_length=40)
     country = models.CharField(max_length=40)
-    projectCode = models.CharField(max_length=4)
+    projectCode = models.CharField(max_length=12)
 
     def __str__(self):
         return self.projectCode
@@ -19,8 +19,16 @@ class System(models.Model):
     def __str__(self):
         return self.systemCode
 
-# class Instrument
+class Instrument(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    pidTagPrefix = models.CharField(max_length=5)
+    pidTagNum = models.IntegerField(default=1)
 
-# class Valve
-
-# class Equipment
+class Valve(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    pidTagPrefix = models.CharField(max_length=5)
+    pidTagNum = models.IntegerField(default=1)
