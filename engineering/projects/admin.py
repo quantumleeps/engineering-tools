@@ -18,7 +18,7 @@ class SystemAdmin(admin.ModelAdmin):
 class ValveAdmin(admin.ModelAdmin):
     # list_display = ('name', 'system', 'system_number', 'pidTagPrefix', 'pidTagNum')
     list_display = ('name', 'system', 'system_number', 'pid_tag_number')
-    list_filter = ('system', 'pidTagPrefix')
+    list_filter = ('system', 'pid_tag_prefix')
     list_editable = ('system',)
     actions = [duplicate_record]
     def system_number(self, obj):
@@ -28,13 +28,13 @@ class ValveAdmin(admin.ModelAdmin):
         return obj.system.name
 
     def pid_tag_number(self, obj):
-        return str(obj.pidTagPrefix) + '-' + str(obj.system.systemNumber + obj.pidTagNum - 1)
+        return str(obj.pid_tag_prefix) + '-' + str(obj.system.systemNumber + obj.pid_tag_num - 1)
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
 class InstrumentAdmin(admin.ModelAdmin):
     list_display = ('name', 'system', 'system_number', 'pid_tag_number')
-    list_filter = ('system', 'pidTagPrefix')
+    list_filter = ('system', 'pid_tag_prefix')
     list_editable = ('system',)
     actions = [duplicate_record]
     def system_number(self, obj):
@@ -44,7 +44,7 @@ class InstrumentAdmin(admin.ModelAdmin):
         return obj.system.name
 
     def pid_tag_number(self, obj):
-        return str(obj.pidTagPrefix) + '-' + str(obj.system.systemNumber + obj.pidTagNum - 1)
+        return str(obj.pid_tag_prefix) + '-' + str(obj.system.systemNumber + obj.pid_tag_num - 1)
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
