@@ -8,7 +8,7 @@ class Project(models.Model):
     projectCode = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.projectCode
+        return self.name
 
 class System(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -17,7 +17,7 @@ class System(models.Model):
     systemCode = models.CharField(max_length=40)
     
     def __str__(self):
-        return self.systemCode
+        return self.project
 
 class Instrument(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
