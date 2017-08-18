@@ -8,21 +8,28 @@ class Project(models.Model):
     projectCode = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.name
+        return self.name + ", " + self.country
 
+
+
+# system you just select the type of system in choices=[]
+# then you select the quantity
 # This will become inline with Project
-class System(models.Model):
+
+class ProjectSystem(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40)
-    systemNumber = models.IntegerField(default=0)
-    systemCode = models.CharField(max_length=40)
+    system = models.ForeignKey('data.BuiltinSystem', on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField(default=1)
+
+    # def system_name(self, obj):
+    #     return obj.system.name
     
     def __str__(self):
-        return self.project
+        return self.system.name
 
 class Instrument(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
@@ -49,7 +56,7 @@ class Instrument(models.Model):
 
 class Valve(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)    
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
@@ -67,14 +74,14 @@ class Valve(models.Model):
 
 class Pump(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
 
 class Tank(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
@@ -83,7 +90,7 @@ class Tank(models.Model):
 
 class Pipe(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(System, on_delete=models.CASCADE)
+    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)

@@ -25,3 +25,11 @@ class PipeSize(models.Model):
 
     def __str__(self):
         return self.name
+
+class BuiltinSystem(models.Model):
+    name = models.CharField(max_length=40)
+    system_number = models.IntegerField(default=0)
+    system_code = models.CharField(max_length=40)
+    
+    def __str__(self):
+        return u'%s (%s)' % (self.name, self.system_number)
