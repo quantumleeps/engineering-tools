@@ -28,6 +28,7 @@ class ProjectSystem(models.Model):
         return self.system.name
 
 class Instrument(models.Model):
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)

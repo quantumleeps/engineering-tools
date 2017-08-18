@@ -55,7 +55,12 @@ class InstrumentAdmin(admin.ModelAdmin):
     # def pid_tag_number(self, obj):
     #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
     # ordering = ['system__system_number']
-    pass
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(InstrumentAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['system'].queryset = ProjectSystem.objects.filter()
+        return form
+
+
 class PumpAdmin(admin.ModelAdmin):
     # list_display = ('name', 'system', 'pid_tag_number')
     # list_filter = ('system', 'pid_tag_prefix')
