@@ -31,70 +31,71 @@ class ProjectSystemAdmin(admin.ModelAdmin):
 #     list_display = ('name', 'systemNumber')
 
 class ValveAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'pid_tag_number')
-    list_filter = ('system', 'pid_tag_prefix')
-    list_editable = ('system',)
-    actions = [duplicate_record]
+    # list_display = ('name', 'system', 'pid_tag_number')
+    # list_filter = ('system', 'pid_tag_prefix')
+    # list_editable = ('system',)
+    # actions = [duplicate_record]
 
-    def system_name(self, obj):
-        return obj.projectsystem.name
+    # def system_name(self, obj):
+    #     return obj.projectsystem.name
 
-    def pid_tag_number(self, obj):
-        return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    ordering = ['system__system_number']
-
+    # def pid_tag_number(self, obj):
+    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
+    # ordering = ['system__system_number']
+    pass
 class InstrumentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'pid_tag_number')
-    list_filter = ('system', 'pid_tag_prefix')
-    list_editable = ('system',)
-    actions = [duplicate_record]
+    # list_display = ('name', 'system', 'pid_tag_number')
+    # list_filter = ('system', 'pid_tag_prefix')
+    # list_editable = ('system',)
+    # actions = [duplicate_record]
 
-    def system_name(self, obj):
-        return obj.projectsystem.name
+    # def system_name(self, obj):
+    #     return obj.projectsystem.name
 
-    def pid_tag_number(self, obj):
-        return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    ordering = ['system__system_number']
-
+    # def pid_tag_number(self, obj):
+    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
+    # ordering = ['system__system_number']
+    pass
 class PumpAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'pid_tag_number')
-    list_filter = ('system', 'pid_tag_prefix')
-    list_editable = ('system',)
-    actions = [duplicate_record]
+    # list_display = ('name', 'system', 'pid_tag_number')
+    # list_filter = ('system', 'pid_tag_prefix')
+    # list_editable = ('system',)
+    # actions = [duplicate_record]
 
-    def system_name(self, obj):
-        return obj.projectsystem.name
+    # def system_name(self, obj):
+    #     return obj.projectsystem.name
 
-    def pid_tag_number(self, obj):
-        return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    ordering = ['system__system_number']
-
+    # def pid_tag_number(self, obj):
+    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
+    # ordering = ['system__system_number']
+    pass
 
 class TankAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'pid_tag_number')
-    list_filter = ('system', 'pid_tag_prefix')
-    list_editable = ('system',)
-    actions = [duplicate_record]
+    # list_display = ('name', 'system', 'pid_tag_number')
+    # list_filter = ('system', 'pid_tag_prefix')
+    # list_editable = ('system',)
+    # actions = [duplicate_record]
 
-    def system_name(self, obj):
-        return obj.projectsystem.name
+    # def system_name(self, obj):
+    #     return obj.projectsystem.name
 
-    def pid_tag_number(self, obj):
-        return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    ordering = ['system__system_number']
-
+    # def pid_tag_number(self, obj):
+    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
+    # ordering = ['system__system_number']
+    pass
 class PipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'pid_tag_number')
-    list_filter = ('system', 'pid_tag_prefix')
-    list_editable = ('system',)
-    actions = [duplicate_record]
+    # list_display = ('name', 'system', 'pid_tag_number')
+    # list_filter = ('system', 'pid_tag_prefix')
+    # list_editable = ('system',)
+    # actions = [duplicate_record]
 
-    def system_name(self, obj):
-        return obj.projectsystem.name
+    # def system_name(self, obj):
+    #     return obj.projectsystem.name
 
-    def pid_tag_number(self, obj):
-        return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    ordering = ['system__system_number']
+    # def pid_tag_number(self, obj):
+    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
+    # ordering = ['system__system_number']
+    pass
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProjectSystem, ProjectSystemAdmin)
