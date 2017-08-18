@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, ProjectSystem, Valve, Instrument, Pump, Tank, Pipe
+from .models import Project, Valve, Instrument, Pump, Tank, Pipe
 
 def duplicate_record(modeladmin, request, queryset):
     for object in queryset:
@@ -7,108 +7,107 @@ def duplicate_record(modeladmin, request, queryset):
         object.save()
 duplicate_record.short_description = "Duplicate selected items"
 
-# Register your models here.
+def add_one_to_quantity(modeladmin, request, queryset):
+    for object in queryset:
+        object.quantity = object.quantity + 1
+        object.save()
+add_one_to_quantity.short_description = "Increase quantity for each selected by one"
 
-class ProjectSystemInline(admin.TabularInline):
-    model = ProjectSystem
-    actions = [duplicate_record]
+def remove_one_from_quantity(modeladmin, request, queryset):
+    for object in queryset:
+        object.quantity = object.quantity - 1
+        object.save()
+remove_one_from_quantity.short_description = "Decrease quantity for each selected by one"
+
+def auto_renumber_selected(modeladmin, request, queryset):
+    i = 1
+    for object in queryset:
+        object.pid_tag_num = i
+        i += 1
+        object.save()
+auto_renumber_selected.short_description = "For each item, assign a new sequential PID Tag Num"
+
+def set_all_quantities_to_one(modeladmin, request, queryset):
+    for object in queryset:
+        object.quantity = 1
+        object.save()
+set_all_quantities_to_one.short_description = "For each item, set the quantity to one"
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'country')
-    inlines = [
-        ProjectSystemInline
-    ]
+    list_display = ('name', 'country', 'projectCode')
     actions = [duplicate_record]
 
-class ProjectSystemAdmin(admin.ModelAdmin):
-    def get_model_perms(self, request):
-        """
-        Return empty perms dict thus hiding the model from admin index.
-        """
-        return {}
-    # pass
-# class SystemAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'systemNumber')
-
 class ValveAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'system', 'pid_tag_number')
-    # list_filter = ('system', 'pid_tag_prefix')
-    # list_editable = ('system',)
-    # actions = [duplicate_record]
+    list_display = ('name', 'project', 'system', 'quantity', 'pid_tag_num', 'pid_tag')
+    list_filter = ('system', 'pid_tag_prefix')
+    list_editable = ('system', 'pid_tag_num', 'quantity')
+    actions = [duplicate_record, add_one_to_quantity, remove_one_from_quantity, auto_renumber_selected, set_all_quantities_to_one]
 
-    # def system_name(self, obj):
-    #     return obj.projectsystem.name
-
-    # def pid_tag_number(self, obj):
-    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    # ordering = ['system__system_number']
-    pass
+    def pid_tag(self, obj):
+        if obj.quantity > 1:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1) + "-X"
+        else:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1)
+    ordering = ['system__system_number', 'pid_tag_num']
+    
 class InstrumentAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'system', 'pid_tag_number')
-    # list_filter = ('system', 'pid_tag_prefix')
-    # list_editable = ('system',)
-    # actions = [duplicate_record]
+    list_display = ('name', 'project', 'system', 'quantity', 'pid_tag_num', 'pid_tag')
+    list_filter = ('system', 'pid_tag_prefix')
+    list_editable = ('system', 'pid_tag_num', 'quantity')
+    actions = [duplicate_record, add_one_to_quantity, remove_one_from_quantity, auto_renumber_selected, set_all_quantities_to_one]
 
-    # def system_name(self, obj):
-    #     return obj.projectsystem.name
-
-    # def pid_tag_number(self, obj):
-    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    # ordering = ['system__system_number']
-    def get_form(self, request, obj=None, **kwargs):
-        form = super(InstrumentAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields['system'].queryset = ProjectSystem.objects.filter()
-        return form
-
+    def pid_tag(self, obj):
+        if obj.quantity > 1:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1) + "-X"
+        else:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1)
+    ordering = ['system__system_number', 'pid_tag_num']
 
 class PumpAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'system', 'pid_tag_number')
-    # list_filter = ('system', 'pid_tag_prefix')
-    # list_editable = ('system',)
-    # actions = [duplicate_record]
+    list_display = ('name', 'project', 'system', 'quantity', 'pid_tag_num', 'pid_tag')
+    list_filter = ('system', 'pid_tag_prefix')
+    list_editable = ('system', 'pid_tag_num', 'quantity')
+    actions = [duplicate_record, add_one_to_quantity, remove_one_from_quantity, auto_renumber_selected, set_all_quantities_to_one]
 
-    # def system_name(self, obj):
-    #     return obj.projectsystem.name
-
-    # def pid_tag_number(self, obj):
-    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    # ordering = ['system__system_number']
-    pass
+    def pid_tag(self, obj):
+        if obj.quantity > 1:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1) + "-X"
+        else:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1)
+    ordering = ['system__system_number', 'pid_tag_num']
 
 class TankAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'system', 'pid_tag_number')
-    # list_filter = ('system', 'pid_tag_prefix')
-    # list_editable = ('system',)
-    # actions = [duplicate_record]
+    list_display = ('name', 'project', 'system', 'quantity', 'pid_tag_num', 'pid_tag')
+    list_filter = ('system', 'pid_tag_prefix')
+    list_editable = ('system', 'pid_tag_num', 'quantity')
+    actions = [duplicate_record, add_one_to_quantity, remove_one_from_quantity, auto_renumber_selected, set_all_quantities_to_one]
 
-    # def system_name(self, obj):
-    #     return obj.projectsystem.name
+    def pid_tag(self, obj):
+        if obj.quantity > 1:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1) + "-X"
+        else:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1)
+    ordering = ['system__system_number', 'pid_tag_num']
 
-    # def pid_tag_number(self, obj):
-    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    # ordering = ['system__system_number']
-    pass
 class PipeAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'system', 'pid_tag_number')
-    # list_filter = ('system', 'pid_tag_prefix')
-    # list_editable = ('system',)
-    # actions = [duplicate_record]
+    list_display = ('name', 'project', 'system', 'quantity', 'pid_tag_num', 'pid_tag')
+    list_filter = ('system', 'pid_tag_prefix')
+    list_editable = ('system', 'pid_tag_num', 'quantity')
+    actions = [duplicate_record, add_one_to_quantity, remove_one_from_quantity, auto_renumber_selected, set_all_quantities_to_one]
 
-    # def system_name(self, obj):
-    #     return obj.projectsystem.name
-
-    # def pid_tag_number(self, obj):
-    #     return str(obj.pid_tag_prefix) + '-' + str(obj.projectsystem.system_number + obj.pid_tag_num - 1)
-    # ordering = ['system__system_number']
-    pass
+    def pid_tag(self, obj):
+        if obj.quantity > 1:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1) + "-X"
+        else:
+            return str(obj.pid_tag_prefix) + '-' + str(obj.system.system_number + obj.pid_tag_num - 1)
+    ordering = ['system__system_number', 'pid_tag_num']
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(ProjectSystem, ProjectSystemAdmin)
 admin.site.register(Valve, ValveAdmin)
 admin.site.register(Instrument, InstrumentAdmin)
 admin.site.register(Pump, PumpAdmin)
-admin.site.register(Tank, PumpAdmin)
-admin.site.register(Pipe, PumpAdmin)
+admin.site.register(Tank, TankAdmin)
+admin.site.register(Pipe, PipeAdmin)
 
 
 

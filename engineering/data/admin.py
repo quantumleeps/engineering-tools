@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Material, Fluid, PipeSize, BuiltinSystem
+from .models import Material, Fluid, PipeSize, System, ConnectionType
 
 def duplicate_record(modeladmin, request, queryset):
     for object in queryset:
@@ -24,7 +24,7 @@ class PipeSizeAdmin(admin.ModelAdmin):
     actions = [duplicate_record]
     ordering = ['outside_diameter']
 
-class BuiltinSystemAdmin(admin.ModelAdmin):
+class SystemAdmin(admin.ModelAdmin):
     list_display = ('name',)
     # list_display = ('name', 'system_number', 'system_code')
     # list_editable = ('name',)
@@ -44,4 +44,5 @@ class BuiltinSystemAdmin(admin.ModelAdmin):
 admin.site.register(Material, MaterialAdmin)
 admin.site.register(Fluid, FluidAdmin)
 admin.site.register(PipeSize, PipeSizeAdmin)
-admin.site.register(BuiltinSystem, BuiltinSystemAdmin)
+admin.site.register(System, SystemAdmin)
+admin.site.register(ConnectionType)

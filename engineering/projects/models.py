@@ -8,63 +8,42 @@ class Project(models.Model):
     projectCode = models.CharField(max_length=40)
 
     def __str__(self):
-        return self.name + ", " + self.country
-
-
-
-# system you just select the type of system in choices=[]
-# then you select the quantity
-# This will become inline with Project
-
-class ProjectSystem(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey('data.BuiltinSystem', on_delete=models.CASCADE, null=True)
-    quantity = models.IntegerField(default=1)
-
-    # def system_name(self, obj):
-    #     return obj.system.name
-    
-    def __str__(self):
-        return self.system.name
+        return self.projectCode
 
 class Instrument(models.Model):
-
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
+    system = models.ForeignKey('data.System', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
-    analog_input = models.BooleanField(default=False)
-    analog_output = models.BooleanField(default=False)
-    digital_input = models.BooleanField(default=False)
-    digital_output= models.BooleanField(default=False)
+    quantity = models.IntegerField(default=1)
     instrument_voltage = models.CharField(max_length=40, blank=True, null=True)
     instrument_type = models.CharField(max_length=40, blank=True, null=True)
     material = models.ForeignKey('data.Material', blank=True, null=True, on_delete=models.CASCADE)
     fluid = models.ForeignKey('data.Fluid', blank=True, null=True, on_delete=models.CASCADE)
     connection_size = models.ForeignKey('data.PipeSize', blank=True, null=True, on_delete=models.CASCADE)
-    process_connection_type = models.CharField(max_length=40, blank=True, null=True)
+    process_connection_type = models.ForeignKey('data.ConnectionType', blank=True, null=True, on_delete=models.CASCADE)
     detailed_description = models.CharField(max_length=40, blank=True, null=True)
     lower_instrument_range = models.CharField(max_length=40, blank=True, null=True)
     upper_instrument_range = models.CharField(max_length=40, blank=True, null=True)
     lower_process_range = models.CharField(max_length=40, blank=True, null=True)
     upper_process_range = models.CharField(max_length=40, blank=True, null=True)
     instrument_range_units = models.CharField(max_length=40, blank=True, null=True)
-    low_setpoint = models.CharField(max_length=40, blank=True, null=True)
-    low_low_setpoint = models.CharField(max_length=40, blank=True, null=True)
-    high_setpoint = models.CharField(max_length=40, blank=True, null=True)
-    high_high_setpoint = models.CharField(max_length=40, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class Valve(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)    
+    system = models.ForeignKey('data.System', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
     material = models.ForeignKey('data.Material', blank=True, null=True, on_delete=models.CASCADE)
     fluid = models.ForeignKey('data.Fluid', blank=True, null=True, on_delete=models.CASCADE)
     connection_size = models.ForeignKey('data.PipeSize', blank=True, null=True, on_delete=models.CASCADE)
-    connection_type = models.CharField(max_length=40, blank=True, null=True)
+    process_connection_type = models.ForeignKey('data.ConnectionType', blank=True, null=True, on_delete=models.CASCADE)
     pipe_flange_class = models.CharField(max_length=40, blank=True, null=True)
     vendor = models.CharField(max_length=40, blank=True, null=True)
     valve_model = models.CharField(max_length=40, blank=True, null=True)
@@ -73,28 +52,34 @@ class Valve(models.Model):
     temperature = models.CharField(max_length=40, blank=True, null=True)
     service = models.CharField(max_length=40, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 class Pump(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
+    system = models.ForeignKey('data.System', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
 
 class Tank(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
+    system = models.ForeignKey('data.System', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
     material = models.CharField(max_length=40, blank=True, null=True)
     capacity = models.IntegerField(default=1, blank=True, null=True)
 
 class Pipe(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    system = models.ForeignKey(ProjectSystem, on_delete=models.CASCADE, null=True)
+    system = models.ForeignKey('data.System', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=40)
     pid_tag_prefix = models.CharField(max_length=5)
     pid_tag_num = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
     material = models.CharField(max_length=40, blank=True, null=True)
     size = models.CharField(max_length=40, blank=True, null=True)
     connection_type_side_a = models.CharField(max_length=40, blank=True, null=True)
