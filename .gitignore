@@ -19,3 +19,7 @@ env/
 .vscode/
 
 db.sqlite3
+
+.pyc
+
+*/__pycache__/*
