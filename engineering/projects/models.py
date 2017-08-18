@@ -10,6 +10,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+# This will become inline with Project
 class System(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
