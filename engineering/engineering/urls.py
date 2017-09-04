@@ -5,4 +5,5 @@ urlpatterns = [
     url(r'^projects/', include('projects.urls')),
     url(r'^data-collection/', include('data_collection.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^nested_admin/', include('nested_admin.urls')),
 ]

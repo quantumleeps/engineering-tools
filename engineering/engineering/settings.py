@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'nested_admin',
     'data_collection.apps.DataCollectionConfig',
     'projects.apps.ProjectsConfig',
     'data.apps.DataConfig',
