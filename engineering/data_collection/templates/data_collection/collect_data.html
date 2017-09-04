@@ -1,4 +1,13 @@
 {% if run %}
+<h3>{{ run.location }}</h3><h4>{{ run.name }}</h4>
+{% if groups %}
+<a href="#">All Groups</a>
+{% for group in groups %}
+    <a href="#">{{ group.group__name }}</a>
+{% endfor %}
+
+{% endif %}
+
 
 {% for point in run.points.all %}
     <div style="border: solid blue 1px; margin: 10px">

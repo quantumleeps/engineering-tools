@@ -1,3 +1,4 @@
+
 {% if runs %}
 <h1>Welcome, Raheim</h1>
 <h4>Select a run of data to collect</h4>
@@ -5,6 +6,7 @@
 {% for run in runs %}
     <li><a href="/data-collection/collect-data/{{ run.id }}/">{{ run.name }}</a></li>
 {% endfor %}
+
 </ul>
 {% else %}
 <p>No runs are available.</p>

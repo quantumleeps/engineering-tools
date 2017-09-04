@@ -25,7 +25,7 @@ class LocationAdmin(nested_admin.NestedModelAdmin):
 class RunAdmin(admin.ModelAdmin):
     model = Run
     list_filter = ['location']
-    filter_horizontal = ('points',)
+    filter_horizontal = ('points','data_collectors',)
     form = RunForm
 
 admin.site.register(Location, LocationAdmin)
