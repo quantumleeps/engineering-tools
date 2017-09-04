@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'data_collection.apps.DataCollectionConfig',
     'projects.apps.ProjectsConfig',
     'data.apps.DataConfig',
     'django.contrib.admin',
