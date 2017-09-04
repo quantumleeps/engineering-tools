@@ -1,36 +1,32 @@
 from django.contrib import admin
 from .models import Location, Group, Point, Run, CollectedPoint, CollectedRun
+from .forms import RunForm
 
-# def duplicate_record(modeladmin, request, queryset):
-#     for object in queryset:
-#         object.id = None
-#         object.save()
-# duplicate_record.short_description = "Duplicate selected items"
+class RunAdmin(admin.ModelAdmin):
+    model = Run
+    # def formfield_for_manytomany(self, db_field, request, **kwargs):
+    #     if db_field.name == 'points':
+    #         kwargs['initial'] = [Run.objects.get_current()]
+    #         return db_field.formfield(**kwargs)
 
-# # Register your models here.
+    #     return super(RunAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
-# class MaterialAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'uns_number', 'astm_number')
-#     actions = [duplicate_record]
-#     ordering = ['astm_number', 'name']
 
-# class FluidAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'specific_gravity')
-#     actions = [duplicate_record]
-#     ordering = ['name']
+    # def formfield_for_manytomany(self, db_field, request, **kwargs):
+    #     if db_field.name == "points":
+    #         kwargs["queryset"] = Point.objects.filter()
+    #     return super().formfield_for_manytomany(db_field, request, **kwargs)
+    list_filter = ['location']
+    filter_horizontal = ('points',)
+    form = RunForm
 
-# class PipeSizeAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'units', 'outside_diameter')
-#     actions = [duplicate_record]
-#     ordering = ['outside_diameter']
 
-# class LocationAdmin(admin.ModelAdmin):
-#     pass
+
 
 admin.site.register(Location)
 admin.site.register(Group)
 admin.site.register(Point)
-admin.site.register(Run)
+admin.site.register(Run, RunAdmin)
 admin.site.register(CollectedPoint)
 admin.site.register(CollectedRun)
 

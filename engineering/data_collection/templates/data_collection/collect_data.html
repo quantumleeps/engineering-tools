@@ -1,0 +1,20 @@
+{% if run %}
+
+{% for point in run.points.all %}
+    <div style="border: solid blue 1px; margin: 10px">
+        <p>
+            {{ point.name }}
+            <br>{{ point.group }}
+            <br>{{ point.group.location }}
+        </p>
+        <p><input type="text"></input>{{ point.units }}<br>
+            
+            {{ point.low }} -> {{ point.lowlow }}<br>
+            {{ point.high }} -> {{ point.highhigh }}<br>
+        </p>
+    </div>
+{% endfor %}
+
+{% else %}
+<p>No runs are available.</p>
+{% endif %}

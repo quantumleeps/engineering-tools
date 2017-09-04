@@ -1,0 +1,9 @@
+{% if locations %}
+<ul>
+{% for location in locations %}
+    <li><a href="{% url 'collect' run.id %}">{{ location.name }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
