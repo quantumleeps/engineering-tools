@@ -4,6 +4,12 @@
 <h4>Select a run of data to collect</h4>
 <ul>
 {% for run in runs %}
+    <!-- you need this link below to create a new collectedrun and 
+        auto link to it open for editing 
+        /data-collection/create-collected-run/14  this creates
+        a collected run based on run 14. It creates all of the 
+        collected points and instantiates them into the collected
+        run -->
     <li><a href="/data-collection/collect-data/{{ run.id }}/">{{ run.name }}</a></li>
 {% endfor %}
 
