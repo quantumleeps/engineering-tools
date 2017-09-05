@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 
 from .models import Location, Run, Group
-from .forms import CollectedRunForm, CollectedPointForm
-# from .forms import NameForm
+from .forms import CollectedRunForm
+from django.views.generic.edit import FormView
 
 def index(request):
     locations = Location.objects.all()
@@ -16,38 +16,38 @@ def pick_run(request):
     return render(request, 'data_collection/pick-run.html', context)
 
 def collect_data(request, run_id):
-    form = CollectedPointForm()
+    form = CollectedRunForm()
+    if request.method == "POST":
+        print(request.POST)
     run = get_object_or_404(Run, pk=run_id)
     points = run.points
     groups = points.values('group__name').distinct()
     context = {
         'run': run,
         'groups': groups,
-        'form': form,
     }
-    if form.is_valid():
-        collected_point = form.save(commit=False)
-        collected_point.save()
     return render(request, 'data_collection/collect_data.html', context)
 
-# favorites = Favorite.objects.filter(user=request.user)
-# color_ids = favorites.values_list('item__color', flat=True).distinct()
-
-
-# def get_name(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = NameForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
-
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = NameForm()
-
-#     return render(request, 'name.html', {'form': form})
+def post_collected_run(request, run_id):
+    instance = get_object_or_404(Run, pk=run_id)
+    # print(instance.points.distinct().values())
+    if request.method == "POST":
+        context = {
+            'instance': instance
+        }
+        # what are the steps to have an instantiated new collectedrun 
+        # with all the collected points?
+        # what you're doing is creating a new collected run and that is
+        # what you're editing, not a "run"
+        # you create the collected run and create all the collected
+        # points so then all you're doing after that is performing
+        # an update on points and and update on the overall
+        # you only perform an update if the value has changed
+        # Value can change during a data run. you're going to want to
+        # autoupdate every 20 seconds or whenever a field is left
+    else: 
+        print('not a post')
+        context = {
+            'instance': instance
+        }
+    return render(request, 'data_collection/make_run.html', context)

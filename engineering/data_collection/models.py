@@ -37,9 +37,12 @@ class Run(models.Model):
         return str(self.location) + ' - ' + str(self.name)
 
 class CollectedPoint(models.Model):
-    point = models.ForeignKey(Point, on_delete=models.CASCADE)
+    # point = models.ForeignKey(Point, on_delete=models.CASCADE)
     value = models.FloatField(blank=True, null=True)
-    modified = models.DateTimeField(auto_now=True)
+    units = models.CharField(max_length=40, blank=True, null=True)
+    inrange = models.BooleanField(blank=True, default=True)
+    run = models.ForeignKey(Run, blank=True, null=True)
+    modified = models.DateTimeField(auto_now=True, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     
 class CollectedRun(models.Model):

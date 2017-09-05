@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^pick-run/', views.pick_run),
     url(r'^collect-data/(?P<run_id>[0-9]+)/$', views.collect_data, name="collect"),
+    url(r'^make-run/(?P<run_id>[0-9]+)/$', views.post_collected_run),
 ]

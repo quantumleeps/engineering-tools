@@ -1,58 +1,27 @@
 {% if run %}
+
 <h3>{{ run.location }}</h3><h4>{{ run.name }}</h4>
-{% if groups %}
-<a href="#">All Groups</a>
-{% for group in groups %}
-    <a href="#">{{ group.group__name }}</a>
+
+<form method='POST' action=''>{% csrf_token %}
+{{ form.as_p }}
+
+{% for point in run.points.all %}
+{{ point.name }}
+<br>{{ point.group }}
+<br>{{ point.group.location }}
+
+<input type="text">{{ point.units }}<br>
+
+<!-- <p><input type="text"></input> -->
+
+{{ point.low }} -> {{ point.lowlow }}<br>
+{{ point.high }} -> {{ point.highhigh }}<br>
+</p>
+</div>
 {% endfor %}
 
-{% endif %}
 
-<h1>New post</h1>
-<form method="POST" >
-    {% csrf_token %}
-
-    {% for point in run.points.all %}
-            {{ point.name }}
-            <br>{{ point.group }}
-            <br>{{ point.group.location }}
-
-            {% for field in form %}
-            {{ field }}
-            {% endfor %}{{ point.units }}<br>
-
-        <!-- <p><input type="text"></input> -->
-            
-            {{ point.low }} -> {{ point.lowlow }}<br>
-            {{ point.high }} -> {{ point.highhigh }}<br>
-        </p>
-    </div>
-    {% endfor %}
-
-
-
-
-
-
-    <button type="submit" >Save</button>
-</form>
-
-
-
-<!-- {% for point in run.points.all %}
-    <div style="border: solid blue 1px; margin: 10px">
-        <p>
-            {{ point.name }}
-            <br>{{ point.group }}
-            <br>{{ point.group.location }}
-        </p>
-        <p><input type="text"></input>{{ point.units }}<br>
-            
-            {{ point.low }} -> {{ point.lowlow }}<br>
-            {{ point.high }} -> {{ point.highhigh }}<br>
-        </p>
-    </div>
-{% endfor %} -->
+<input type='submit' value='Submit' />
 
 {% else %}
 <p>No runs are available.</p>

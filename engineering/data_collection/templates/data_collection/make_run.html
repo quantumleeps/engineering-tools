@@ -1,0 +1,27 @@
+Here you'll make a run, see
+
+{% if testing %}
+{{ testing }}
+{% endif %}
+
+<form method="POST" action="">{% csrf_token %}
+    {% if instance.points %}testing
+    {% for point in instance.points.all %}
+
+        <div style="border: 1px solid black; margin: 2px">
+            {{ point.name }}
+            <br>{{ point.group }}
+            <br>{{ point.group.location }}
+            <br><input type="text" name="{{ point.pk }}">{{ point.units }}
+        </div>
+    {% endfor %}
+    {% endif %}
+    <br><input type="submit">
+</form>
+
+
+{% if thelist %}
+{% for item in thelist %}
+{{ item }}
+{% endfor %}
+{% endif %}

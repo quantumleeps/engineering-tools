@@ -1,6 +1,5 @@
 # from django.contrib import admin
 from .models import Location, Group, Point, Run, CollectedPoint, CollectedRun
-from .forms import RunForm, PointForm
 from django.contrib import admin
 import nested_admin
 
@@ -26,7 +25,6 @@ class RunAdmin(admin.ModelAdmin):
     model = Run
     list_filter = ['location']
     filter_horizontal = ('points','data_collectors',)
-    form = RunForm
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Run, RunAdmin)

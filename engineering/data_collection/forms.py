@@ -33,13 +33,10 @@ class CollectedRunForm(forms.ModelForm):
     class Meta:
         model = CollectedRun
         fields = [
-            'collected_points',
-            'user',
+            'collected_points'
         ]
 
-class CollectedPointForm(forms.ModelForm):
-    class Meta:
-        model = CollectedPoint
-        fields = [
-            'value',
-        ]
+# class CollectedRunForm(forms.modelForm):
+#     class Meta:
+#         model = CollectedRun
+#         fields = ['points__value']
