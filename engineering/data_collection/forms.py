@@ -1,5 +1,5 @@
 from django import forms
-from .models import Run, Point, Location, Group
+from .models import Run, Point, Location, Group, CollectedRun, CollectedPoint
 
 class RunForm(forms.ModelForm):
 
@@ -28,3 +28,18 @@ class PointForm(forms.ModelForm):
             print(kwargs['instance'].group.location)
             # self.fields['group'].queryset = Point.objects.all()
             self.fields['group'].queryset = Group.objects.filter(location=kwargs['instance'].group.location)
+
+class CollectedRunForm(forms.ModelForm):
+    class Meta:
+        model = CollectedRun
+        fields = [
+            'collected_points',
+            'user',
+        ]
+
+class CollectedPointForm(forms.ModelForm):
+    class Meta:
+        model = CollectedPoint
+        fields = [
+            'value',
+        ]

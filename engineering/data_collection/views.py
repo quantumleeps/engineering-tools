@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 
 from .models import Location, Run, Group
+from .forms import CollectedRunForm, CollectedPointForm
 # from .forms import NameForm
 
 def index(request):
@@ -15,10 +16,19 @@ def pick_run(request):
     return render(request, 'data_collection/pick-run.html', context)
 
 def collect_data(request, run_id):
+    form = CollectedPointForm()
     run = get_object_or_404(Run, pk=run_id)
     points = run.points
     groups = points.values('group__name').distinct()
-    return render(request, 'data_collection/collect_data.html', {'run': run, 'groups': groups})
+    context = {
+        'run': run,
+        'groups': groups,
+        'form': form,
+    }
+    if form.is_valid():
+        collected_point = form.save(commit=False)
+        collected_point.save()
+    return render(request, 'data_collection/collect_data.html', context)
 
 # favorites = Favorite.objects.filter(user=request.user)
 # color_ids = favorites.values_list('item__color', flat=True).distinct()

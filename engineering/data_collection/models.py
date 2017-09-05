@@ -34,12 +34,15 @@ class Run(models.Model):
     data_collectors = models.ManyToManyField(User, blank=True, null=True)
 
     def __str__(self):
-        
         return str(self.location) + ' - ' + str(self.name)
 
 class CollectedPoint(models.Model):
     point = models.ForeignKey(Point, on_delete=models.CASCADE)
     value = models.FloatField(blank=True, null=True)
-
+    modified = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    
 class CollectedRun(models.Model):
-    pass
+    collected_points = models.ManyToManyField(CollectedPoint, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    submitted = models.DateTimeField(auto_now=True)

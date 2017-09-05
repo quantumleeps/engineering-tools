@@ -30,3 +30,4 @@ class RunAdmin(admin.ModelAdmin):
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Run, RunAdmin)
+admin.site.register(CollectedPoint)
