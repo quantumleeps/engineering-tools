@@ -1,0 +1,3 @@
+{% for project in projects %}
+<li><a href="{% url 'tags_list' project.slug %}">{{ project.name }}</a></li>
+{% endfor %}

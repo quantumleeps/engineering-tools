@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<style type="text/css" media="print">
+.dontprint
+{ display: none; }
+</style>
+
+
+<style>
+
+.system_item {
+    padding: 5px;
+}
+
+</style>
+
+<div class="container">
+    {% if project_name %}
+            <h1>{{ project_name }}</h1>
+    {% endif %}
+    <span class="dontprint">
+        {% if systems %}
+            Click a system to filter the items shown:
+            <br>
+            {% if system_slug %}
+                <span class="system_item"><a href="{% url 'tags_list' project_slug %}">List All Systems</a>
+            {% endif %}
+            {% for system in systems %}
+                {% if system.slug == system_slug %}
+                    <span class="system_item">{{ system.name }}</span>
+                {% else %}
+                    <span class="system_item"><a href="{% url 'tags_list' system.project.slug system.slug %}">{{ system.name }}</a></span>
+                {% endif %}    
+            {% endfor %}
+        {% endif %}
+    </span>
+    {% if system_name %}
+        <h2>{{ system_name }}</h2>
+    {% endif %}
+
+    {%  if tag_prefix %}
+        <h3>{{ tag_prefix }}</h3>
+    {% endif %}
+
+    {% if instruments %}
+        <h3>Instruments</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>Brand</th>
+                <th>Model Number</th>
+                <th>System</th>
+            </tr>
+        {% for instrument in instruments %}
+            <tr>
+                <td>{{ instrument.name }}</td>
+                <td>{{ instrument.pid_tag_number }}</td>
+                <td>{% if instrument.brand_name %}{{ instrument.brand_name }}{% else %}-{% endif %}</td>
+                <td>{% if instrument.model_number %}{{ instrument.model_number }}{% else %}-{% endif %}</td>
+                <td>{{ instrument.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if valves %}
+        <h3>Valves</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>Nominal Size</th>
+                <th>Brand</th>
+                <th>Model Number</th>
+                <th>System</th>
+            </tr>
+        {% for valve in valves %}
+            <tr>
+                <td>{{ valve.name }}</td>
+                <td>{{ valve.pid_tag_number }}</td>
+                <td>{% if valve.connection_size %}{{ valve.connection_size }} {{valve.connection_size.units }}{% else %}-{% endif %}
+                <td>{% if valve.vendor %}{{ valve.vendor }}{% else %}-{% endif %}</td>
+                <td>{% if valve.valve_model %}{{ valve.valve_model }}{% else %}-{% endif %}</td>
+                <td>{{ valve.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if pumps %}
+        <h3>Pumps</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>System</th>
+            </tr>
+        {% for pump in pumps %}
+            <tr>
+                <td>{{ pump.name }}</td>
+                <td>{{ pump.pid_tag_number }}</td>
+                <td>{{ pump.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if pipes %}
+        <h3>Pipes</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>System</th>
+            </tr>
+        {% for pipe in pipes %}
+            <tr>
+                <td>{{ pump.name }}</td>
+                <td>{{ pump.pid_tag_number }}</td>
+                <td>{{ pump.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if tanks %}
+        <h3>Tanks</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>System</th>
+            </tr>
+        {% for tank in tanks %}
+            <tr>
+                <td>{{ tank.name }}</td>
+                <td>{{ tank.pid_tag_number }}</td>
+                <td>{{ tank.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if equipment %}
+        <h3>Misc. Equipment</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>PID Tag #</th>
+                <th>System</th>
+            </tr>
+        {% for item in equipment %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.pid_tag_number }}</td>
+                <td>{{ item.system }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+</div>
