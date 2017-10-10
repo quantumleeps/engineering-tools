@@ -15,6 +15,11 @@ def fix_case(modeladmin, request, queryset):
         object.save()
 fix_case.short_description = "Fix capitalization"
 
+def save_in_place(modeladmin, request, queryset):
+    for object in queryset:
+        object.save()
+save_in_place.short_description = "Perform a save in place of selected items"
+
 # Register your models here.
 
 class ProjectHistoryAdmin(SimpleHistoryAdmin):
@@ -32,7 +37,7 @@ class ValveHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('project', 'system', 'pid_tag_prefix',)
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
 
@@ -49,7 +54,7 @@ class InstrumentHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('project', 'system', 'pid_tag_prefix',)
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
 
@@ -74,7 +79,7 @@ class PumpHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('system', 'pid_tag_prefix')
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     inlines = [PumpOperatingPointInline, PumpPartInline]
     def system_number(self, obj):
         return obj.system.systemNumber
@@ -93,7 +98,7 @@ class TankHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('system', 'pid_tag_prefix')
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
 
@@ -110,7 +115,7 @@ class PipeHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('system', 'pid_tag_prefix')
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
 
@@ -127,7 +132,7 @@ class EquipmentHistoryAdmin(SimpleHistoryAdmin):
     list_filter = ('system', 'pid_tag_prefix')
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
-    actions = [duplicate_record, fix_case]
+    actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
 

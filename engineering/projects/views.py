@@ -48,7 +48,7 @@ def tags_list(request, project_slug, system_slug=None, tag_prefix=None):
     }
 
     contents = {}
-    contents['systems'] = System.objects.filter(**kwargs)
+    contents['systems'] = Project.objects.filter(slug=project_slug)[0].systems.all()
     contents['project_slug'] = project_slug
     contents['project_name'] = get_object_or_404(Project, slug=project_slug)
     contents['tag_prefix'] = tag_prefix
