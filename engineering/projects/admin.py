@@ -1,4 +1,5 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from .models import Project, System, Valve, Instrument, Pump, Tank, Pipe, Equipment
 from titlecase import titlecase
 
@@ -16,16 +17,19 @@ fix_case.short_description = "Fix capitalization"
 
 # Register your models here.
 
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('name', 'country')
+    history_list_display = ['name', 'country']
 
-class SystemAdmin(admin.ModelAdmin):
+class SystemHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('name', 'systemNumber')
+    history_list_display = ['name', 'systemNumber']
 
-class ValveAdmin(admin.ModelAdmin):
+class ValveHistoryAdmin(SimpleHistoryAdmin):
     # list_display = ('name', 'system', 'system_number', 'pidTagPrefix', 'pidTagNum')
-    list_display = ('name', 'system', 'project', 'pid_tag_number')
+    list_display = ('name', 'system', 'project', 'full_pid_tag_number')
     list_filter = ('project', 'system', 'pid_tag_prefix',)
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -39,9 +43,10 @@ class ValveAdmin(admin.ModelAdmin):
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
-class InstrumentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'project', 'pid_tag_number',)
+class InstrumentHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'system', 'project', 'full_pid_tag_number',)
     list_filter = ('project', 'system', 'pid_tag_prefix',)
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -55,9 +60,10 @@ class InstrumentAdmin(admin.ModelAdmin):
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
-class PumpAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'system_number', 'pid_tag_number')
+class PumpHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'system', 'system_number', 'full_pid_tag_number')
     list_filter = ('system', 'pid_tag_prefix')
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -72,9 +78,10 @@ class PumpAdmin(admin.ModelAdmin):
     ordering = ['system__systemNumber']
 
 
-class TankAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'system_number', 'pid_tag_number')
+class TankHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'system', 'system_number', 'full_pid_tag_number')
     list_filter = ('system', 'pid_tag_prefix')
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -88,9 +95,10 @@ class TankAdmin(admin.ModelAdmin):
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
-class PipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'system_number', 'pid_tag_number')
+class PipeHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'system', 'system_number', 'full_pid_tag_number')
     list_filter = ('system', 'pid_tag_prefix')
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -104,9 +112,10 @@ class PipeAdmin(admin.ModelAdmin):
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
-class EquipmentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'system', 'system_number', 'pid_tag_number')
+class EquipmentHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'system', 'system_number', 'full_pid_tag_number')
     list_filter = ('system', 'pid_tag_prefix')
+    history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system',)
     actions = [duplicate_record, fix_case]
     def system_number(self, obj):
@@ -121,14 +130,14 @@ class EquipmentAdmin(admin.ModelAdmin):
     ordering = ['system__systemNumber']
 
 
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(System, SystemAdmin)
-admin.site.register(Valve, ValveAdmin)
-admin.site.register(Instrument, InstrumentAdmin)
-admin.site.register(Pump, PumpAdmin)
-admin.site.register(Tank, TankAdmin)
-admin.site.register(Pipe, PipeAdmin)
-admin.site.register(Equipment, EquipmentAdmin)
+admin.site.register(Project, ProjectHistoryAdmin)
+admin.site.register(System, SystemHistoryAdmin)
+admin.site.register(Valve, ValveHistoryAdmin)
+admin.site.register(Instrument, InstrumentHistoryAdmin)
+admin.site.register(Pump, PumpHistoryAdmin)
+admin.site.register(Tank, TankHistoryAdmin)
+admin.site.register(Pipe, PipeHistoryAdmin)
+admin.site.register(Equipment, EquipmentHistoryAdmin)
 
 
 
