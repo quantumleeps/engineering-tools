@@ -32,7 +32,7 @@
                 {% if system.slug == system_slug %}
                     <span class="system_item">{{ system.name }}</span>
                 {% else %}
-                    <span class="system_item"><a href="{% url 'tags_list' system.project.slug system.slug %}">{{ system.name }}</a></span>
+                    <span class="system_item"><a href="{% url 'tags_list' project_slug system.slug %}">{{ system.name }}</a></span>
                 {% endif %}    
             {% endfor %}
         {% endif %}
@@ -58,7 +58,7 @@
         {% for instrument in instruments %}
             <tr>
                 <td>{{ instrument.name }}</td>
-                <td>{{ instrument.pid_tag_number }}</td>
+                <td>{{ instrument.full_pid_tag_number }}</td>
                 <td>{% if instrument.brand_name %}{{ instrument.brand_name }}{% else %}-{% endif %}</td>
                 <td>{% if instrument.model_number %}{{ instrument.model_number }}{% else %}-{% endif %}</td>
                 <td>{{ instrument.system }}</td>
@@ -81,7 +81,7 @@
         {% for valve in valves %}
             <tr>
                 <td>{{ valve.name }}</td>
-                <td>{{ valve.pid_tag_number }}</td>
+                <td>{{ valve.full_pid_tag_number }}</td>
                 <td>{% if valve.connection_size %}{{ valve.connection_size }} {{valve.connection_size.units }}{% else %}-{% endif %}
                 <td>{% if valve.vendor %}{{ valve.vendor }}{% else %}-{% endif %}</td>
                 <td>{% if valve.valve_model %}{{ valve.valve_model }}{% else %}-{% endif %}</td>
@@ -102,7 +102,7 @@
         {% for pump in pumps %}
             <tr>
                 <td>{{ pump.name }}</td>
-                <td>{{ pump.pid_tag_number }}</td>
+                <td>{{ pump.full_pid_tag_number }}</td>
                 <td>{{ pump.system }}</td>
             </tr>
         {% endfor %}
@@ -119,9 +119,9 @@
             </tr>
         {% for pipe in pipes %}
             <tr>
-                <td>{{ pump.name }}</td>
-                <td>{{ pump.pid_tag_number }}</td>
-                <td>{{ pump.system }}</td>
+                <td>{{ pipe.name }}</td>
+                <td>{{ pipe.full_pid_tag_number }}</td>
+                <td>{{ pipe.system }}</td>
             </tr>
         {% endfor %}
         </table>
@@ -138,7 +138,7 @@
         {% for tank in tanks %}
             <tr>
                 <td>{{ tank.name }}</td>
-                <td>{{ tank.pid_tag_number }}</td>
+                <td>{{ tank.full_pid_tag_number }}</td>
                 <td>{{ tank.system }}</td>
             </tr>
         {% endfor %}
@@ -156,7 +156,7 @@
         {% for item in equipment %}
             <tr>
                 <td>{{ item.name }}</td>
-                <td>{{ item.pid_tag_number }}</td>
+                <td>{{ item.full_pid_tag_number }}</td>
                 <td>{{ item.system }}</td>
             </tr>
         {% endfor %}
