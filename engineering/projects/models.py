@@ -124,7 +124,7 @@ class Equipment(models.Model):
     class Meta:
         verbose_name = 'Piece of Equipment'
         verbose_name_plural = 'Equipment'
-
+        
 class Pump(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     system = models.ForeignKey(System, on_delete=models.CASCADE)
@@ -133,6 +133,7 @@ class Pump(models.Model):
     pid_tag_num = models.IntegerField(default=1)
     full_pid_tag_number = models.CharField(max_length=40, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
+    style = models.CharField(max_length=40, blank=True, null=True)
     history = HistoricalRecords()
 
     def make_pid_tag_number(self):
@@ -142,6 +143,23 @@ class Pump(models.Model):
         self.slug = slugify(self.make_pid_tag_number() + '-' + str(self.project.name))
         self.full_pid_tag_number = self.make_pid_tag_number()
         super(Pump, self).save(*args, **kwargs)
+
+class PumpOP(models.Model):
+    name = models.CharField(max_length=25)
+    pump = models.ForeignKey(Pump, on_delete=models.CASCADE, blank=True, null=True)
+    diff_pressure = models.FloatField(null=True)
+    diff_pressure_units = models.CharField(max_length=20, default="psid")
+    flow = models.FloatField(null=True)
+    flow_units = models.CharField(max_length=20, default="usgpm")
+    eff = models.FloatField(null=True)
+
+class PumpPart(models.Model):
+    name = models.CharField(max_length=25)
+    pump = models.ForeignKey(Pump, on_delete=models.CASCADE, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    material = models.CharField(max_length=40, blank=True, null=True)  # need to associate this with ASTM numbers that are registered materials
+    standard = models.CharField(max_length=40, blank=True, null=True)
+    note = models.CharField(max_length=100, blank=True, null=True)
 
 class Tank(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
