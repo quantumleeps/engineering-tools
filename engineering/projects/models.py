@@ -144,7 +144,7 @@ class Pump(models.Model):
         self.full_pid_tag_number = self.make_pid_tag_number()
         super(Pump, self).save(*args, **kwargs)
 
-class PumpOP(models.Model):
+class PumpOperatingPoint(models.Model):
     name = models.CharField(max_length=25)
     pump = models.ForeignKey(Pump, on_delete=models.CASCADE, blank=True, null=True)
     diff_pressure = models.FloatField(null=True)
