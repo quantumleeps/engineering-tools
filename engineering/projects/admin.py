@@ -20,6 +20,7 @@ fix_case.short_description = "Fix capitalization"
 class ProjectHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('name', 'country')
     history_list_display = ['name', 'country']
+    filter_horizontal = ['systems']
 
 class SystemHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('name', 'systemNumber')

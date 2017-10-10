@@ -4,22 +4,7 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
-class Project(models.Model):
-    name = models.CharField(max_length=40)
-    country = models.CharField(max_length=40)
-    projectCode = models.CharField(max_length=40)
-    slug = models.SlugField(blank=True, null=True)
-    history = HistoricalRecords()
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Project, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
 class System(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     systemNumber = models.IntegerField(default=0)
     systemCode = models.CharField(max_length=40)
@@ -30,6 +15,21 @@ class System(models.Model):
         self.slug = slugify(self.name)
         super(System, self).save(*args, **kwargs)
     
+    def __str__(self):
+        return self.name
+    
+class Project(models.Model):
+    name = models.CharField(max_length=40)
+    systems = models.ManyToManyField(System)
+    country = models.CharField(max_length=40)
+    projectCode = models.CharField(max_length=40)
+    slug = models.SlugField(blank=True, null=True)
+    history = HistoricalRecords()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Project, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
