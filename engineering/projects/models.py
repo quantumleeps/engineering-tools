@@ -12,9 +12,11 @@ class System(models.Model):
     systemCode = models.CharField(max_length=40)
     slug = models.SlugField(blank=True, null=True)
     history = HistoricalRecords()
+    systemNumberString = models.CharField(max_length=10, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        self.systemNumberString = str(self.systemNumber).zfill(4)
         super(System, self).save(*args, **kwargs)
     
     def __str__(self):
@@ -233,7 +235,7 @@ class ControlledDocument(models.Model):
     history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
-        self.drawing_title = self.project.projectCode + '-' + self.category.code + '-' + str(self.system.systemNumber) + '-' + str(self.system_drawing_number).zfill(3)
+        self.drawing_title = self.project.projectCode + '-' + self.category.code + '-' + str(self.system.systemNumberString) + '-' + str(self.system_drawing_number).zfill(3)
         super(ControlledDocument, self).save(*args, **kwargs)
 
     def __str__(self):
