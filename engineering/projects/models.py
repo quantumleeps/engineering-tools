@@ -4,6 +4,8 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
+
+
 class System(models.Model):
     name = models.CharField(max_length=40)
     systemNumber = models.IntegerField(default=0)
@@ -202,3 +204,37 @@ class Pipe(models.Model):
         self.slug = slugify(self.make_pid_tag_number() + '-' + str(self.project.name))
         self.full_pid_tag_number = self.make_pid_tag_number()
         super(Pipe, self).save(*args, **kwargs)
+
+class DocumentCategory(models.Model):
+    name = models.CharField(max_length=60)
+    code = models.CharField(max_length=1)
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = 'Document Category'
+        verbose_name_plural = 'Document Categories'
+
+    def __str__(self):
+        return self.code + ' - ' + self.name
+
+class ControlledDocument(models.Model):
+    project = models.ForeignKey(Project)
+    system = models.ForeignKey(System)
+    system_drawing_number = models.IntegerField(default=0)
+    description = models.CharField(max_length=60)
+    category = models.ForeignKey(DocumentCategory)
+    original_file_format = models.CharField(max_length=35, blank=True, null=True)
+    released_file_format = models.CharField(max_length=35, blank=True, null=True)
+    revision_number = models.CharField(max_length=10)
+    notes = models.CharField(max_length=60, blank=True, null=True)
+    owner = models.CharField(max_length=60, blank=True, null=True)
+    status = models.CharField(max_length=60, blank=True, null=True)
+    drawing_title = models.CharField(max_length=60, blank=True, null=True)
+    history = HistoricalRecords()
+
+    def save(self, *args, **kwargs):
+        self.drawing_title = self.project.projectCode + '-' + self.category.code + '-' + str(self.system.systemNumber) + '-' + str(self.system_drawing_number).zfill(3)
+        super(ControlledDocument, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.description

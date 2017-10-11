@@ -1,6 +1,6 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
-from .models import Project, System, Valve, Instrument, Pump, Tank, Pipe, Equipment, PumpOperatingPoint, PumpPart
+from .models import Project, System, Valve, Instrument, Pump, Tank, Pipe, Equipment, PumpOperatingPoint, PumpPart, DocumentCategory, ControlledDocument
 from titlecase import titlecase
 
 def duplicate_record(modeladmin, request, queryset):
@@ -144,7 +144,16 @@ class EquipmentHistoryAdmin(SimpleHistoryAdmin):
         # return str(obj.system.systemNumber + self.pidTagNum)
     ordering = ['system__systemNumber']
 
+class DocumentCategoryHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('name', 'code')
+    history_list_display = ['name', 'code']
 
+class ControlledDocumentHistoryAdmin(SimpleHistoryAdmin):
+    list_display = ('description', 'project', 'drawing_title')
+    history_list_display = ['description', 'project', 'drawing_title']
+
+admin.site.register(DocumentCategory, DocumentCategoryHistoryAdmin)
+admin.site.register(ControlledDocument, ControlledDocumentHistoryAdmin)
 admin.site.register(Project, ProjectHistoryAdmin)
 admin.site.register(System, SystemHistoryAdmin)
 admin.site.register(Valve, ValveHistoryAdmin)
