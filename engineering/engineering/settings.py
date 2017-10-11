@@ -25,7 +25,10 @@ SECRET_KEY = 'mh1mps*3yo+q^-(al_&1o_*f5qfo=$fhg&@b+q(z5(pp3(dwqn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['aquweb01']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '192.168.0.55',
+]
 
 
 # Application definition

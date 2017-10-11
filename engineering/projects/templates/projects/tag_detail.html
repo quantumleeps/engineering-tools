@@ -1,0 +1,54 @@
+{% extends './base.html' %}
+<style>
+
+#main {
+    margin-top: 20px
+}
+
+</style>
+
+{% block content %}
+<div class="container" id="main">
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% else%}
+        {% if project %}
+            <h1>{{ project }}</h1>
+        {% endif %}
+        {% if pid_tag %}
+            <h2><b>{{ type }}</b> {{ pid_tag }}</h2>
+        {% endif %}
+        <br>
+        <!-- template for instrument tag display -->
+        {% if type == "Instrument" %}
+            <table class="table table-striped">
+                <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+                <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Device Brand Name:</b></td><td>{{ item.brand_name|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Model Number:</b></td><td>{{ item.model_number|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
+            </table>
+        {% endif %}
+        <!-- template for valve tag display -->
+        {% if type == "Valve" %}
+            {{ item.name }} is a valve
+        {% endif %}
+        <!-- template for pump tag display -->
+        {% if type == "Pump" %}
+            {{ item.name }} is a pump
+        {% endif %}
+        <!-- template for tank tag display -->
+        {% if type == "Tank" %}
+            {{ item.name }} is  a tank
+        {% endif %}
+        <!-- template for pipe tag display -->
+        {% if type == "Pipe" %}
+            {{ item.name }} is  a pipe
+        {% endif %}
+        <!-- template for equipment tag display -->
+        {% if type == "Equipment" %}
+            {{ item.name }} is some equipment
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock content %}
