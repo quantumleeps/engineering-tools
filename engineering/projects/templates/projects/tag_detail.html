@@ -1,12 +1,8 @@
 {% extends './base.html' %}
 <style>
 
-#main {
-    margin-top: 20px
-}
-
 </style>
-
+<br>
 {% block content %}
 <div class="container" id="main">
     {% if error %}
@@ -27,27 +23,48 @@
                 <tr><td><b>Device Brand Name:</b></td><td>{{ item.brand_name|default_if_none:"-" }}</td></tr>
                 <tr><td><b>Model Number:</b></td><td>{{ item.model_number|default_if_none:"-" }}</td></tr>
                 <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }} {{ item.connection_size.units |default_if_none:"" }}</td></tr>                
             </table>
         {% endif %}
         <!-- template for valve tag display -->
         {% if type == "Valve" %}
-            {{ item.name }} is a valve
+            <table class="table table-striped">
+                <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+                <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Device Brand Name:</b></td><td>{{ item.vendor|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Model Number:</b></td><td>{{ item.valve_model|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }} {{ item.connection_size.units |default_if_none:"" }}</td></tr>                               
+            </table>
         {% endif %}
         <!-- template for pump tag display -->
         {% if type == "Pump" %}
-            {{ item.name }} is a pump
+            <table class="table table-striped">
+                <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+                <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>            </table>
         {% endif %}
         <!-- template for tank tag display -->
         {% if type == "Tank" %}
-            {{ item.name }} is  a tank
+            <table class="table table-striped">
+                <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+                <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Material:</b></td><td>{{ item.material|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Capacity:</b></td><td>{{ item.capacity|default_if_none:"-" }} {{ item.capacity_units|default_if_none:"-" }}</td></tr>
+                <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
+            </table>
         {% endif %}
         <!-- template for pipe tag display -->
         {% if type == "Pipe" %}
-            {{ item.name }} is  a pipe
+            Pipe details here
         {% endif %}
         <!-- template for equipment tag display -->
         {% if type == "Equipment" %}
-            {{ item.name }} is some equipment
+        <table class="table table-striped">
+            <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+            <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+            <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
+            </table>
         {% endif %}
     {% endif %}
 </div>

@@ -173,6 +173,7 @@ class Tank(models.Model):
     pid_tag_num = models.IntegerField(default=1)
     material = models.CharField(max_length=40, blank=True, null=True)
     capacity = models.IntegerField(default=1, blank=True, null=True)
+    capacity_units = models.CharField(default="US Gal", max_length=20, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     full_pid_tag_number = models.CharField(max_length=40, blank=True, null=True)
     history = HistoricalRecords()

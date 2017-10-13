@@ -70,18 +70,14 @@
         <h3>Instruments</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>Brand</th>
-                <th>Model Number</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-4">PID Tag #</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for instrument in instruments %}
             <tr>
                 <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.name }}</a></td>
-                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}"></a></td>
-                <td>{% if instrument.brand_name %}{{ instrument.brand_name }}{% else %}-{% endif %}</td>
-                <td>{% if instrument.model_number %}{{ instrument.model_number }}{% else %}-{% endif %}</td>
+                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.full_pid_tag_number }}</a></td>
                 <td>{{ instrument.system }}</td>
             </tr>
         {% endfor %}
@@ -92,20 +88,16 @@
         <h3>Valves</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>Nominal Size</th>
-                <th>Brand</th>
-                <th>Model Number</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-2">PID Tag #</th>
+                <th class="col-md-2">Nominal Size</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for valve in valves %}
             <tr>
-                <td>{{ valve.name }}</td>
-                <td>{{ valve.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug valve.full_pid_tag_number %}">{{ valve.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug valve.full_pid_tag_number %}">{{ valve.full_pid_tag_number }}</a></td>
                 <td>{% if valve.connection_size %}{{ valve.connection_size }} {{valve.connection_size.units }}{% else %}-{% endif %}
-                <td>{% if valve.vendor %}{{ valve.vendor }}{% else %}-{% endif %}</td>
-                <td>{% if valve.valve_model %}{{ valve.valve_model }}{% else %}-{% endif %}</td>
                 <td>{{ valve.system }}</td>
             </tr>
         {% endfor %}
@@ -116,14 +108,14 @@
         <h3>Pumps</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-4">PID Tag #</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for pump in pumps %}
             <tr>
-                <td>{{ pump.name }}</td>
-                <td>{{ pump.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug pump.full_pid_tag_number %}">{{ pump.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug pump.full_pid_tag_number %}">{{ pump.full_pid_tag_number }}</a></td>
                 <td>{{ pump.system }}</td>
             </tr>
         {% endfor %}
@@ -134,14 +126,14 @@
         <h3>Pipes</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-4">PID Tag #</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for pipe in pipes %}
             <tr>
-                <td>{{ pipe.name }}</td>
-                <td>{{ pipe.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug pipe.full_pid_tag_number %}">{{ pipe.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug pipe.full_pid_tag_number %}">{{ pipe.full_pid_tag_number }}</a></td>
                 <td>{{ pipe.system }}</td>
             </tr>
         {% endfor %}
@@ -152,14 +144,14 @@
         <h3>Tanks</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-4">PID Tag #</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for tank in tanks %}
             <tr>
-                <td>{{ tank.name }}</td>
-                <td>{{ tank.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug tank.full_pid_tag_number %}">{{ tank.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug tank.full_pid_tag_number %}">{{ tank.full_pid_tag_number }}</a></td>
                 <td>{{ tank.system }}</td>
             </tr>
         {% endfor %}
@@ -170,14 +162,14 @@
         <h3>Misc. Equipment</h3>
         <table class="table table-striped">
             <tr>
-                <th>Name</th>
-                <th>PID Tag #</th>
-                <th>System</th>
+                <th class="col-md-5">Name</th>
+                <th class="col-md-4">PID Tag #</th>
+                <th class="col-md-3">System</th>
             </tr>
         {% for item in equipment %}
             <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug item.full_pid_tag_number %}">{{ item.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug item.full_pid_tag_number %}">{{ item.full_pid_tag_number }}</a></td>
                 <td>{{ item.system }}</td>
             </tr>
         {% endfor %}
