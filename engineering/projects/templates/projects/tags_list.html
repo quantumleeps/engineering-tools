@@ -57,8 +57,8 @@
             </tr>
         {% for instrument in instruments %}
             <tr>
-                <td>{{ instrument.name }}</td>
-                <td>{{ instrument.full_pid_tag_number }}</td>
+                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.name }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.full_pid_tag_number }}</a></td>
                 <td>{% if instrument.brand_name %}{{ instrument.brand_name }}{% else %}-{% endif %}</td>
                 <td>{% if instrument.model_number %}{{ instrument.model_number }}{% else %}-{% endif %}</td>
                 <td>{{ instrument.system }}</td>
