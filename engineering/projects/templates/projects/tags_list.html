@@ -26,6 +26,12 @@
     font-style: bold;
 }
 
+@media print {
+    a[href]:after {
+      content: none !important;
+    }
+}
+
 </style>
  {% load static %}
 
