@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<title>{{ project_name }} - P&ID Tag List</title>
 
 <style type="text/css" media="print">
 .dontprint
@@ -39,7 +39,9 @@
     <div class="row">
         <div class="col-md-7">
             {% if project_name %}
-                <span id="project_header">{{ project_name }}</span>
+                <div id="project_header">{{ project_name }}</div>
+                <h4>P&ID Tags List</h4>
+                <br>
             {% endif %}
         </div>
         <div style="padding-top: 10px;" class="col-md-5 text-right">
