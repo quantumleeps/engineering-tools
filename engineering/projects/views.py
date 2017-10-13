@@ -31,12 +31,12 @@ def tags_list(request, project_slug, system_slug=None, tag_prefix=None):
         contents['system_slug'] = system_slug
         kwargs['system__slug'] = system_slug
         
-    contents['instruments'] = Instrument.objects.filter(**kwargs)
-    contents['valves'] = Valve.objects.filter(**kwargs)
-    contents['tanks'] = Tank.objects.filter(**kwargs)
-    contents['pumps'] = Pump.objects.filter(**kwargs)
-    contents['pipes'] = Pipe.objects.filter(**kwargs)
-    contents['equipment'] = Equipment.objects.filter(**kwargs)
+    contents['instruments'] = Instrument.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
+    contents['valves'] = Valve.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
+    contents['tanks'] = Tank.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
+    contents['pumps'] = Pump.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
+    contents['pipes'] = Pipe.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
+    contents['equipment'] = Equipment.objects.filter(**kwargs).order_by('-system__systemNumber', '-full_pid_tag_number')
     
     return render(request, 'projects/tags_list.html', contents)
 
