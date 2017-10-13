@@ -165,3 +165,5 @@ admin.site.register(Equipment, EquipmentHistoryAdmin)
 
 
 
+admin.site.site_title = 'CWCO Engineering Admin Page'
+admin.site.site_header = 'CWCO Engineering Admin Page'

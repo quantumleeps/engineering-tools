@@ -26,6 +26,7 @@ SECRET_KEY = 'mh1mps*3yo+q^-(al_&1o_*f5qfo=$fhg&@b+q(z5(pp3(dwqn'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '127.0.0.1',
     '192.168.0.55',
     'aquweb01',
