@@ -33,7 +33,7 @@ def tags_list(request, project_slug, system_slug=None, tag_prefix=None):
     # be systems that are in the project's system list
     # need to check that the instrument's system is part of the project's systems:
     contents = {}
-    contents['systems'] = find_used_systems(get_object_or_404(Project, slug=project_slug).systems.all())
+    contents['systems'] = find_used_systems(get_object_or_404(Project, slug=project_slug).systems.all().order_by('systemNumber'))
     contents['project_slug'] = project_slug
     contents['project_name'] = get_object_or_404(Project, slug=project_slug)
     contents['tag_prefix'] = tag_prefix
