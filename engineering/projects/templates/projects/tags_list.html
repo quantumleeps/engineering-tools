@@ -15,12 +15,33 @@
     padding: 5px;
 }
 
-</style>
+#logo_img {
+    width: 44px;
+    height: 40px;
+    padding-left: 4px;
+}
 
-<div class="container">
-    {% if project_name %}
-            <h1>{{ project_name }}</h1>
-    {% endif %}
+#project_header {
+    font-size: 40px;
+    font-style: bold;
+}
+
+</style>
+ {% load static %}
+
+<div style="margin-top: 20px;" class="container">
+    <div class="row">
+        <div class="col-md-7">
+            {% if project_name %}
+                <span id="project_header">{{ project_name }}</span>
+            {% endif %}
+        </div>
+        <div style="padding-top: 10px;" class="col-md-5 text-right">
+            CWCO Project Engineering <img id="logo_img" src="{% static 'projects/cwco_logo.jpg' %}">
+        </div>
+    </div>
+    
+
     <span class="dontprint">
         {% if systems %}
             Click a system to filter the items shown:
@@ -58,7 +79,7 @@
         {% for instrument in instruments %}
             <tr>
                 <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.name }}</a></td>
-                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}">{{ instrument.full_pid_tag_number }}</a></td>
+                <td><a href="{% url 'tag_detail' project_slug instrument.full_pid_tag_number %}"></a></td>
                 <td>{% if instrument.brand_name %}{{ instrument.brand_name }}{% else %}-{% endif %}</td>
                 <td>{% if instrument.model_number %}{{ instrument.model_number }}{% else %}-{% endif %}</td>
                 <td>{{ instrument.system }}</td>
