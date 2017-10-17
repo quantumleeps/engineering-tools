@@ -149,6 +149,9 @@ class Pump(models.Model):
         self.full_pid_tag_number = self.make_pid_tag_number()
         super(Pump, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 class PumpOperatingPoint(models.Model):
     name = models.CharField(max_length=25)
     pump = models.ForeignKey(Pump, on_delete=models.CASCADE, blank=True, null=True)
@@ -244,3 +247,28 @@ class ControlledDocument(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class PumpSpecification(models.Model):
+    project = models.ForeignKey(Project)
+    pump = models.ForeignKey(Pump)
+    category = models.ForeignKey(DocumentCategory)
+    doc_num = models.IntegerField(default=1)
+    rev_number = models.CharField(max_length=10, blank=True, null=True)
+    intro = models.TextField(max_length=2500)
+    contacts = models.TextField(max_length=750, blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True)
+    history = HistoricalRecords()
+
+    def save(self, *args, **kwargs):
+        self.slug = self.pump.project.projectCode + '-' + self.category.code + '-' + str(self.pump.system.systemNumber) + '-' + str(self.doc_num).zfill(3)
+        super(PumpSpecification, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.pump.project.projectCode + '-D-' + str(self.pump.system.systemNumber) + '-' + str(self.doc_num).zfill(3)
+    
+class Deliverable(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=70)
+    due_date = models.CharField(max_length=70)
+    pump_spec = models.ForeignKey(PumpSpecification, on_delete=models.CASCADE)

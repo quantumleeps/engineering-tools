@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Project, System, Instrument, Valve, Pump, Pipe, Tank, Equipment
+from .models import Project, System, Instrument, Valve, Pump, Pipe, Tank, Equipment, PumpSpecification
 from django.shortcuts import get_object_or_404, render
 
 def find_used_systems(systems):
@@ -97,3 +97,15 @@ def tag_detail(request, project_slug, pid_tag_slug):
 
 
     return render(request, 'projects/tag_detail.html', contents)
+
+def pump_spec(request, project_slug, pump_spec_slug):
+    contents = {}
+    project = get_object_or_404(Project, slug=project_slug)
+    pump_spec = get_object_or_404(PumpSpecification, slug=pump_spec_slug)
+    pump = pump_spec.pump
+
+    contents['project'] = project
+    contents['pump_spec'] = pump_spec
+    contents['pump'] = pump
+
+    return render(request, 'projects/pump_spec.html', contents)

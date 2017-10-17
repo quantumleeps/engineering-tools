@@ -1,6 +1,7 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
 from .models import Project, System, Valve, Instrument, Pump, Tank, Pipe, Equipment, PumpOperatingPoint, PumpPart, DocumentCategory, ControlledDocument
+from .models import PumpSpecification, Deliverable
 from titlecase import titlecase
 
 def duplicate_record(modeladmin, request, queryset):
@@ -152,6 +153,13 @@ class ControlledDocumentHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('description', 'project', 'drawing_title')
     history_list_display = ['description', 'project', 'drawing_title']
 
+class DeliverableInline(admin.TabularInline):
+    model = Deliverable
+    extra = 0
+
+class PumpSpecHistoryAdmin(SimpleHistoryAdmin):
+    inlines = [DeliverableInline]
+
 admin.site.register(DocumentCategory, DocumentCategoryHistoryAdmin)
 admin.site.register(ControlledDocument, ControlledDocumentHistoryAdmin)
 admin.site.register(Project, ProjectHistoryAdmin)
@@ -162,6 +170,7 @@ admin.site.register(Pump, PumpHistoryAdmin)
 admin.site.register(Tank, TankHistoryAdmin)
 admin.site.register(Pipe, PipeHistoryAdmin)
 admin.site.register(Equipment, EquipmentHistoryAdmin)
+admin.site.register(PumpSpecification, PumpSpecHistoryAdmin)
 
 
 

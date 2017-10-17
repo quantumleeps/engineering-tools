@@ -1,0 +1,76 @@
+{% extends './base.html' %} 
+
+Consolidated Water Pump Specification Created by Dan Leeper Revision Table: 
+
+{% block content %}
+{% load static %}
+<style>
+    html, body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #topmost_block {
+        margin-top: 60px;
+        padding: 20px;
+        /* margin-bottom: 20px; */
+        /* background-color: red; */
+    }
+    .main_header {
+        font-size: 180%;
+    }
+    .secondary_header {
+        font-size: 160%;
+    }
+    .tertiary_header {
+        font-size: 140%;
+    }
+    #rev_table {
+        /* background-color: green; */
+        margin-top: 100px;
+    }
+    #logo {
+        padding: 20px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div id="logo" class="col-sm-6 text-right">
+            <img id="logo_img" src="{% static 'projects/cwco_logo.jpg' %}">
+        </div>
+        <div class="col-sm-6 text-left">
+            <div id="topmost_block" class="container-fluid">
+                <div class="main_header">Consolidated Water</div>
+                <div class="secondary_header">Pump Specification</div>
+                <div class="tertiary_header">{{ project.name }}</div>
+            </div>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">&nbsp</div>
+        <div id="rev_table" class="container-fluid col-md-6">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Revised By</th>
+                    <th>Revision Number</th>
+                    <th>Description</th>
+                    <th>Revision Date</th>
+                </tr>
+                <tr>
+                    <td>Dan Leeper</td>
+                    <td>0</td>
+                    <td>Preliminary</td>
+                    <td>2016-09-23</td>
+                </tr>
+                <tr>
+                    <td>Dan Leeper</td>
+                    <td>1</td>
+                    <td>For Release</td>
+                    <td>2016-12-16</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">&nbsp</div>
+    </div>
+    
+</div>
+
+{% endblock %}
