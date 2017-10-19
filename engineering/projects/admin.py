@@ -33,10 +33,10 @@ class SystemHistoryAdmin(SimpleHistoryAdmin):
 
 class ValveHistoryAdmin(SimpleHistoryAdmin):
     # list_display = ('name', 'system', 'system_number', 'pidTagPrefix', 'pidTagNum')
-    list_display = ('name', 'system', 'project', 'full_pid_tag_number')
+    list_display = ('name', 'system', 'project', 'full_pid_tag_number', 'ready_for_quote')
     list_filter = ('project', 'system', 'pid_tag_prefix',)
     history_list_display = ['name', 'system', 'full_pid_tag_number']
-    list_editable = ('system',)
+    list_editable = ('system', 'ready_for_quote',)
     actions = [duplicate_record, fix_case, save_in_place]
     def system_number(self, obj):
         return obj.system.systemNumber
