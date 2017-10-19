@@ -1,0 +1,59 @@
+{% extends './base.html' %}
+{% block content %}
+<style>
+html {
+  font-size: 12px;
+}
+table {
+    font-size: 12px !important;
+}
+@media print {
+    html {
+        font-size: 7px;
+    }
+    table {
+        font-size: 7px !important;
+    }
+}
+</style>
+<br>
+
+{% load tz %}
+
+<div style="margin-top: 20px;" class="container-fluid">
+    <div class="jumbotron">
+        <h1>{{ project }}</h1>
+        <h3>Valves Needing Quotes</h3>
+        <h5><a href="">Click to download as .CSV</a></h5>
+        <b>Last Modified: </b>{{ last_modified }}
+    </div>
+    <table class="table table-bordered table-condensed">
+        <tr>
+            <th>P&ID Tag</th>
+            <th>Description</th>
+            <th>Manufacturer</th>
+            <th>Part Number</th>
+            <th>Nominal Size</th>
+            <th>End Connections</th>
+            <th>Flange Class</th>
+            <th>Max Temperature</th>
+            <th>Max Pressure</th>
+            <th>Detailed Description</th>
+        </tr>
+        {% for valve in valves %}
+        <tr>
+            <td><nobr>{{ valve.full_pid_tag_number}}</nobr></td>
+            <td>{{ valve.name }}</td>
+            <td>{{ valve.vendor }}</td>
+            <td><nobr>{{ valve.valve_model|default_if_none:"" }}</nobr></td>
+            <td>{{ valve.connection_size|default_if_none:"" }}</td>
+            <td>{{ valve.connection_type|default_if_none:"" }}</td>
+            <td>{{ valve.pipe_flange_class|default_if_none:"" }}</td>
+            <td>{{ valve.temperature|default_if_none:"" }}</td>
+            <td>{{ valve.pressure|default_if_none:"" }}</td>
+            <td>{{ valve.detailed_description|default_if_none:"" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

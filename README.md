@@ -38,3 +38,9 @@ get the things to sort the way you want them to
 4. read about ajax POSTing
 5. would be really nice to be able to add photos on the spot in the plant. as the thing keeps screwing up, it can be documented by anyone looking at it with pictures getting descriptions later (via email even)
 6. setup a basic RFQ for pumps after getting schema sorted out
+
+fix for ordering systems by number
+
+   # some of your models may have explicit ordering
+    class Meta:
+        ordering = ('city')

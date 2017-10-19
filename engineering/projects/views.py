@@ -1,6 +1,8 @@
 from django.http import HttpResponse
+from datetime import datetime
 from .models import Project, System, Instrument, Valve, Pump, Pipe, Tank, Equipment
 from django.shortcuts import get_object_or_404, render
+
 
 def find_used_systems(systems):
     used_systems = []
@@ -97,3 +99,11 @@ def tag_detail(request, project_slug, pid_tag_slug):
 
 
     return render(request, 'projects/tag_detail.html', contents)
+
+
+def valve_spec(request, project_slug):
+    contents = {}
+    contents['project'] = get_object_or_404(Project, slug=project_slug)
+    contents['valves'] = Valve.objects.filter(project__slug=project_slug, ready_for_quote=True).exclude(vendor__isnull=True).order_by('vendor')
+    contents['last_modified'] = "{:%B %d, %Y  %H:%M}".format(Valve.history.all().order_by('-history_date')[0].history_date)
+    return render(request, 'projects/valve_spec.html', contents)

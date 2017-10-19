@@ -96,6 +96,7 @@ class Valve(models.Model):
     service = models.CharField(max_length=40, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     full_pid_tag_number = models.CharField(max_length=40, blank=True, null=True)
+    ready_for_quote = models.BooleanField(default=False, blank=True)
     history = HistoricalRecords()
 
     def make_pid_tag_number(self):
@@ -105,6 +106,10 @@ class Valve(models.Model):
         self.slug = slugify(self.make_pid_tag_number() + '-' + str(self.project.name))
         self.full_pid_tag_number = self.make_pid_tag_number()
         super(Valve, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        self.history.filter().delete()
+        super(Valve, self).delete()
 
 class Equipment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
