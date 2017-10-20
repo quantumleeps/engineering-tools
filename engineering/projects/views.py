@@ -107,3 +107,6 @@ def valve_spec(request, project_slug):
     contents['valves'] = Valve.objects.filter(project__slug=project_slug, ready_for_quote=True).exclude(vendor__isnull=True).order_by('vendor')
     contents['last_modified'] = "{:%B %d, %Y  %H:%M}".format(Valve.history.all().order_by('-history_date')[0].history_date)
     return render(request, 'projects/valve_spec.html', contents)
+
+import io
+from xlsxwriter.workbook import Workbook

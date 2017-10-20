@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% block content %}
+<title>Consolidated Water Engineering--Valve Specification</title>
 <style>
 html {
   font-size: 12px;
@@ -9,7 +10,7 @@ table {
 }
 @media print {
     html {
-        font-size: 7px;
+        font-size: 7px;w
     }
     table {
         font-size: 7px !important;
@@ -18,13 +19,13 @@ table {
 </style>
 <br>
 
-{% load tz %}
+
 
 <div style="margin-top: 20px;" class="container-fluid">
     <div class="jumbotron">
-        <h1>{{ project }}</h1>
-        <h3>Valves Needing Quotes</h3>
-        <h5><a href="">Click to download as .CSV</a></h5>
+        <h1>Consolidated Water Engineering - {{ project }}</h1>
+        <h3>Valve Specification Sheet</h3>
+        <h5><a href="../valves-xlsx/">Click to download as a Microsoft Excel file</a></h5>
         <b>Last Modified: </b>{{ last_modified }}
     </div>
     <table class="table table-bordered table-condensed">

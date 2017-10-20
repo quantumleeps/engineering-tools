@@ -23,5 +23,8 @@ class PipeSize(models.Model):
     outside_diameter = models.FloatField(max_length=40)
     inside_diameter = models.FloatField(max_length=40, blank=True, null=True)
 
+    def append_units(self):
+        return self.name + ' ' + self.units
+
     def __str__(self):
-        return self.name
+        return self.name + ' ' + self.units
