@@ -143,9 +143,15 @@ def valve_rfq_xlsx_view(request, project_slug):
         worksheet.write(row + i,3, None, table_value_input)
         worksheet.write(row + i,4, valve['vendor'], table_value)
         worksheet.write(row + i,5, valve['valve_model'], table_value)
-        connection_size = get_object_or_404(PipeSize, pk=valve['connection_size_id']).append_units()
+        if valve['connection_size_id']:
+            connection_size = get_object_or_404(PipeSize, pk=valve['connection_size_id']).append_units()
+        else:
+            connection_size = None
         worksheet.write(row + i,6, connection_size, table_value)
-        material = get_object_or_404(Material, pk=valve['material_id']).__dict__['name']
+        if valve['material_id']:
+            material = get_object_or_404(Material, pk=valve['material_id']).__dict__['name']
+        else:
+            material = None
         worksheet.write(row + i,7, material, table_value)
         worksheet.write(row + i,8, valve['connection_type'], table_value)
         worksheet.write(row + i,9, valve['pipe_flange_class'], table_value)

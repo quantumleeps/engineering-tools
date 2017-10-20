@@ -34,7 +34,7 @@ class SystemHistoryAdmin(SimpleHistoryAdmin):
 class ValveHistoryAdmin(SimpleHistoryAdmin):
     # list_display = ('name', 'system', 'system_number', 'pidTagPrefix', 'pidTagNum')
     list_display = ('name', 'system', 'project', 'full_pid_tag_number', 'ready_for_quote')
-    list_filter = ('project', 'system', 'pid_tag_prefix',)
+    list_filter = ('project', 'system', 'pid_tag_prefix','ready_for_quote')
     history_list_display = ['name', 'system', 'full_pid_tag_number']
     list_editable = ('system', 'ready_for_quote',)
     actions = [duplicate_record, fix_case, save_in_place]
@@ -149,8 +149,9 @@ class DocumentCategoryHistoryAdmin(SimpleHistoryAdmin):
     history_list_display = ['name', 'code']
 
 class ControlledDocumentHistoryAdmin(SimpleHistoryAdmin):
-    list_display = ('description', 'project', 'drawing_title')
+    list_display = ('description', 'project', 'drawing_title', 'system', 'category')
     history_list_display = ['description', 'project', 'drawing_title']
+    list_filter = ('system', 'category')
 
 admin.site.register(DocumentCategory, DocumentCategoryHistoryAdmin)
 admin.site.register(ControlledDocument, ControlledDocumentHistoryAdmin)
