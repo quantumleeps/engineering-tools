@@ -9,7 +9,7 @@ from xlsxwriter.workbook import Workbook
 def valve_rfq_xlsx_view(request, project_slug):
 
     project = get_object_or_404(Project, slug=project_slug).__dict__['name']
-    valves_queryset = Valve.objects.filter(project__slug=project_slug, ready_for_quote=True).exclude(vendor__isnull=True).order_by('vendor')
+    valves_queryset = Valve.objects.filter(project__slug=project_slug, procurement_status='rq').exclude(vendor__isnull=True).order_by('vendor')
     valves = [i.__dict__ for i in list(valves_queryset)]
     print(valves[0])
     modified_date = "{:%B %d, %Y  %H:%M}".format(Valve.history.all().order_by('-history_date')[0].history_date)

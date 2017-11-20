@@ -78,6 +78,16 @@ class Instrument(models.Model):
         super(Instrument, self).save(*args, **kwargs)
 
 class Valve(models.Model):
+
+    procurement_status_choices = (
+        ('sp', 'Specification Underway'),
+        ('rq', 'Ready For Quote'),
+        ('qo', 'Quote Requested'),
+        ('qi', 'Received Quote'), 
+        ('op', 'Order Placed'),
+        ('rc', 'Received by Engineering'),
+    )
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     system = models.ForeignKey(System, on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
@@ -96,7 +106,11 @@ class Valve(models.Model):
     service = models.CharField(max_length=40, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     full_pid_tag_number = models.CharField(max_length=40, blank=True, null=True)
-    ready_for_quote = models.BooleanField(default=False, blank=True)
+    procurement_status = models.CharField(
+        max_length = 2,
+        choices = procurement_status_choices,
+        default = 'sp'
+    )
     history = HistoricalRecords()
 
     def make_pid_tag_number(self):

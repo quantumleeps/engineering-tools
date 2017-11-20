@@ -20,6 +20,12 @@ def save_in_place(modeladmin, request, queryset):
         object.save()
 save_in_place.short_description = "Perform a save in place of selected items"
 
+def set_to_quote_requested(modeladmin, request, queryset):
+    for object in queryset:
+        object.procurement_status = 'qo'
+        object.save()
+set_to_quote_requested.short_description = "Update procurement status to 'Quote Requested'"
+
 # Register your models here.
 
 class ProjectHistoryAdmin(SimpleHistoryAdmin):
@@ -33,11 +39,11 @@ class SystemHistoryAdmin(SimpleHistoryAdmin):
 
 class ValveHistoryAdmin(SimpleHistoryAdmin):
     # list_display = ('name', 'system', 'system_number', 'pidTagPrefix', 'pidTagNum')
-    list_display = ('name', 'system', 'project', 'full_pid_tag_number', 'ready_for_quote')
-    list_filter = ('project', 'system', 'pid_tag_prefix','ready_for_quote')
-    history_list_display = ['name', 'system', 'full_pid_tag_number']
-    list_editable = ('system', 'ready_for_quote',)
-    actions = [duplicate_record, fix_case, save_in_place]
+    list_display = ('name', 'system', 'project', 'full_pid_tag_number', 'procurement_status')
+    list_filter = ('project', 'system', 'pid_tag_prefix','procurement_status')
+    history_list_display = ['name', 'system', 'full_pid_tag_number', 'procurement_status']
+    list_editable = ('system', 'procurement_status',)
+    actions = [duplicate_record, fix_case, save_in_place, set_to_quote_requested]
     def system_number(self, obj):
         return obj.system.systemNumber
 
