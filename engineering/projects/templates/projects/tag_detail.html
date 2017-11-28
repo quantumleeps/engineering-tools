@@ -23,19 +23,39 @@
                 <tr><td><b>Device Brand Name:</b></td><td>{{ item.brand_name|default_if_none:"-" }}</td></tr>
                 <tr><td><b>Model Number:</b></td><td>{{ item.model_number|default_if_none:"-" }}</td></tr>
                 <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
-                <tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }} {{ item.connection_size.units |default_if_none:"" }}</td></tr>                
+                <tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }}</td></tr>                
             </table>
         {% endif %}
         <!-- template for valve tag display -->
         {% if type == "Valve" %}
-            <table class="table table-striped">
-                <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
-                <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
-                <tr><td><b>Device Brand Name:</b></td><td>{{ item.vendor|default_if_none:"-" }}</td></tr>
-                <tr><td><b>Model Number:</b></td><td>{{ item.valve_model|default_if_none:"-" }}</td></tr>
-                <tr><td><b>Detailed Description:</b></td><td>{{ item.detailed_description|default_if_none:"-" }}</td></tr>
-                <tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }} {{ item.connection_size.units |default_if_none:"" }}</td></tr>                               
-            </table>
+            
+            <div class="container">
+                <div class="row">
+                        <div class="col">
+                                <table class="table table-striped">
+                                    <tr><td><b>Description:</b></td><td>{{ item.name|default_if_none:"-" }}</td></tr>
+                                    <tr><td><b>System:</b></td><td>{{ item.system|default_if_none:"-" }}</td></tr>
+                                    {% if item.vendor %}<tr><td><b>Device Brand Name:</b></td><td>{{ item.vendor|default_if_none:"-" }}</td></tr>{% endif %}
+                                    {% if item.valve_model %}<tr><td><b>Model Number:</b></td><td>{{ item.valve_model|default_if_none:"-" }}</td></tr>{% endif %}
+                                    {% if item.connection_size %}<tr><td><b>Connection Size:</b></td><td>{{ item.connection_size |default_if_none:"-" }}</td></tr>{% endif %}    
+                                    {% if item.connection_type %}<tr><td><b>Connection Type:</b></td><td>{{ item.connection_type |default_if_none:"-" }}</td></tr>{% endif %}  
+                                    {% if item.pipe_flange_class %}<tr><td><b>Flange Details:</b></td><td>{{ item.pipe_flange_class |default_if_none:"-" }}</td></tr>{% endif %}                    
+                                    {% if item.item %}<tr><td><b>Material:</b></td><td>{{ item.material |default_if_none:"-" }}</td></tr>{% endif %}
+                                    {% if item.fluid %}<tr><td><b>Fluid:</b></td><td>{{ item.fluid |default_if_none:"-" }}</td></tr>{% endif %}
+                                    {% if item.pressure %}<tr><td><b>Maximum Pressure:</b></td><td>{{ item.pressure |default_if_none:"-" }}</td></tr>{% endif %}
+                                    {% if item.temperature %}<tr><td><b>Maximum Temperature:</b></td><td>{{ item.temperature |default_if_none:"-" }}</td></tr>{% endif %}
+                                    <tr><td><b>Procurement Status:</b></td><td>{{ item.get_procurement_status_display |default_if_none:"-" }}</td></tr>
+                                </table>
+                        </div>
+                        <div class="col">
+                                <p><b>Detailed Description:</b> {{ item.detailed_description|default_if_none:"-" }}</p>
+                                <!-- Future code for when you have these implemented into the model:
+                                <p><b>Internal Notes: </b>Note 1. Note 2. Note 3</p>    
+                                <p><b>Notes to Vendors: </b>Please quote both options: Materials in Duplex and Materials in Epoxy coated Ductile Iron</p>    
+                                -->
+                        </div>
+                </div>
+            </div>
         {% endif %}
         <!-- template for pump tag display -->
         {% if type == "Pump" %}
