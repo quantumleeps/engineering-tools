@@ -18,6 +18,9 @@ class System(models.Model):
         self.slug = slugify(self.name)
         self.systemNumberString = str(self.systemNumber).zfill(4)
         super(System, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['systemNumber',]
     
     def __str__(self):
         return self.name
