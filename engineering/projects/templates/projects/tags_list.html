@@ -105,7 +105,7 @@
             <tr>
                 <td><a href="{% url 'tag_detail' project_slug valve.full_pid_tag_number %}">{{ valve.name }}</a></td>
                 <td><a href="{% url 'tag_detail' project_slug valve.full_pid_tag_number %}">{{ valve.full_pid_tag_number }}</a></td>
-                <td>{% if valve.connection_size %}{{ valve.connection_size }} {{valve.connection_size.units }}{% else %}-{% endif %}
+                <td>{% if valve.connection_size %}{{ valve.connection_size }}{% else %}-{% endif %}
                 <td>{{ valve.system }}</td>
             </tr>
         {% endfor %}
