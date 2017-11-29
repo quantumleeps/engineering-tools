@@ -115,7 +115,7 @@ def controlled_document_list(request, project_slug):
     contents = {}
     contents['project'] = get_object_or_404(Project, slug=project_slug)
     contents['project_name'] = contents['project'].name
-    contents['controlled_documents'] = ControlledDocument.objects.filter(project__slug=project_slug).order_by('drawing_title')
+    contents['controlled_documents'] = ControlledDocument.objects.filter(project__slug=project_slug).order_by('system__systemNumber', 'drawing_title')
     return render(request, 'projects/controlled_documents.html', contents)
 
     
