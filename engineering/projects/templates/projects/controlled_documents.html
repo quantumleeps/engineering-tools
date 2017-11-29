@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css" media="print">
+.dontprint
+{ display: none; }
+</style>
+
+
+<style>
+
+.system_item {
+    padding: 5px;
+}
+
+#logo_img {
+    width: 44px;
+    height: 40px;
+    padding-left: 4px;
+}
+
+#project_header {
+    font-size: 40px;
+    font-style: bold;
+}
+
+@media print {
+    a[href]:after {
+      content: none !important;
+    }
+}
+
+</style>
+{% load static %}
+
+<div style="margin-top: 20px;" class="container">
+    <div class="row">
+        <div class="col-md-7">
+            {% if project_name %}
+                <div id="project_header">{{ project_name }}</div>
+                <h4>Controlled Document List</h4>
+                <br>
+            {% endif %}
+        </div>
+        <div style="padding-top: 10px;" class="col-md-5 text-right">
+            CWCO Project Engineering <img id="logo_img" src="{% static 'projects/cwco_logo.jpg' %}">
+        </div>
+    </div>
+    
+    
+    <!-- <span class="dontprint">
+        {% if systems %}
+            Click a system to filter the items shown:
+            <br>
+            {% if system_slug %}
+                <span class="system_item"><a href="{% url 'tags_list' project_slug %}">List All Systems</a>
+            {% endif %}
+            {% for system in systems %}
+                {% if system.slug == system_slug %}
+                    <span class="system_item">{{ system.name }}</span>
+                {% else %}
+                    <span class="system_item"><a href="{% url 'tags_list' project_slug system.slug %}">{{ system.name }}</a></span>
+                {% endif %}    
+            {% endfor %}
+        {% endif %}
+    </span> -->
+
+        <h3>Documents</h3>
+        <table class="table table-striped">
+            <tr>
+                <th class="col-md-2">Filename</th>
+                <th class="col-md-1">Revision</th>
+                <th class="col-md-5">Description</th>
+                <th class="col-md-1">System</th>
+                <th class="col-md-1">Doc Category</th>
+                <th class="col-md-1">Doc Type</th>
+            </tr>
+        {% for doc in controlled_documents %}
+            <tr>
+                <td>{% if doc.share_url %}
+                    <a href="{{ doc.share_url }}">{{ doc.drawing_title }}</a>
+                    {% else %}
+                    {{ doc.drawing_title }}
+                    {% endif %}</td>
+                <td>{{ doc.revision_number }}</td>
+                <td>{{ doc.description }}</td>
+                <td>{{ doc.system.name }}</td>
+                <td>{{ doc.category.name }}</td>
+                <td>{{ doc.released_file_format|default_if_none:"-" }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+</div>

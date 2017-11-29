@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^(?P<project_slug>[\w-]+)/tag/(?P<pid_tag_slug>[\w-]+)$', views.tag_detail, name='tag_detail'),
     url(r'^(?P<project_slug>[\w-]+)/valves/$', views.valve_spec, name='valve_spec'),
     url(r'^(?P<project_slug>[\w-]+)/valves-xlsx/$', xlsx_views.valve_rfq_xlsx_view, name='valve_rfq_xlsx_view'),
+    url(r'^(?P<project_slug>[\w-]+)/controlled-documents/$', views.controlled_document_list, name='controlled_document_list')
 ]

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from datetime import datetime
-from .models import Project, System, Instrument, Valve, Pump, Pipe, Tank, Equipment
+from .models import Project, System, Instrument, Valve, Pump, Pipe, Tank, Equipment, ControlledDocument
 from django.shortcuts import get_object_or_404, render
 
 
@@ -110,3 +110,12 @@ def valve_spec(request, project_slug):
 
 import io
 from xlsxwriter.workbook import Workbook
+
+def controlled_document_list(request, project_slug):
+    contents = {}
+    contents['project'] = get_object_or_404(Project, slug=project_slug)
+    contents['project_name'] = contents['project'].name
+    contents['controlled_documents'] = ControlledDocument.objects.filter(project__slug=project_slug).order_by('drawing_title')
+    return render(request, 'projects/controlled_documents.html', contents)
+
+    

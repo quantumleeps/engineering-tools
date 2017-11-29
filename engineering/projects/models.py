@@ -258,6 +258,7 @@ class ControlledDocument(models.Model):
     owner = models.CharField(max_length=60, blank=True, null=True)
     status = models.CharField(max_length=60, blank=True, null=True)
     drawing_title = models.CharField(max_length=60, blank=True, null=True)
+    share_url = models.CharField(max_length=500, blank=True, null=True)
     history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
