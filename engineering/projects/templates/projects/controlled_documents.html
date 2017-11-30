@@ -116,7 +116,7 @@
         {% for doc in controlled_documents %}
             <tr>
                 <td>{% if doc.share_url %}
-                    <a href="{{ doc.share_url }}">{{ doc.drawing_title }}</a>
+                    <a target="_blank" href="{{ doc.share_url }}">{{ doc.drawing_title }}</a>
                     {% else %}
                     {{ doc.drawing_title }}
                     {% endif %}</td>
