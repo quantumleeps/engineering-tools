@@ -236,11 +236,16 @@ class Pipe(models.Model):
 class DocumentCategory(models.Model):
     name = models.CharField(max_length=60)
     code = models.CharField(max_length=1)
+    slug = models.SlugField(max_length=60)
     history = HistoricalRecords()
 
     class Meta:
         verbose_name = 'Document Category'
         verbose_name_plural = 'Document Categories'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(DocumentCategory, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.code + ' - ' + self.name

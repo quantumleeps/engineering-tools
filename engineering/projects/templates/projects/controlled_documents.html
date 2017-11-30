@@ -47,24 +47,62 @@
             CWCO Project Engineering <img id="logo_img" src="{% static 'projects/cwco_logo.jpg' %}">
         </div>
     </div>
-    
-    
-    <!-- <span class="dontprint">
-        {% if systems %}
-            Click a system to filter the items shown:
+
+    <div class="container-fluid">
+            <b>Click on the links to filter the Document List:</b>
             <br>
-            {% if system_slug %}
-                <span class="system_item"><a href="{% url 'tags_list' project_slug %}">List All Systems</a>
+        <div class="row">
+        
+            <div class="col-md-6">
+                {% if systems %}
+                    {% if category_slug %}
+                        <a href="/projects/{{ project.slug }}/controlled-documents/?category={{ category_slug }}">Show All</a>
+                    {% else %}
+                        <a href="/projects/{{ project.slug }}/controlled-documents/">Show All</a>
+                    {% endif %}
+                    <br>
+                {% for system in systems %}
+                    {% if system.system__slug == system_slug %}
+                        {{ system.system__name }}
+                    {% else %}
+                        {% if category_slug %}
+                            <a href="?category={{ category_slug }}&system={{ system.system__slug }}">{{ system.system__name }}</a>
+                        {% else %}
+                            <a href="?system={{ system.system__slug }}">{{ system.system__name }}</a>
+                        {% endif %}
+                    {% endif %}
+                    <br>
+                {% endfor %}
             {% endif %}
-            {% for system in systems %}
-                {% if system.slug == system_slug %}
-                    <span class="system_item">{{ system.name }}</span>
+            </div>
+            <div class="col-md-6">
+            {% if categories %}
+                {% if system_slug %}
+                    <a href="/projects/{{ project.slug }}/controlled-documents/?system={{ system_slug }}">Show All</a>
                 {% else %}
-                    <span class="system_item"><a href="{% url 'tags_list' project_slug system.slug %}">{{ system.name }}</a></span>
-                {% endif %}    
-            {% endfor %}
-        {% endif %}
-    </span> -->
+                    <a href="/projects/{{ project.slug }}/controlled-documents/">Show All</a>
+                {% endif %}
+                <br>
+                {% for category in categories %}
+                    {% if category.category__slug == category_slug %}
+                        {{ category.category__name }}
+                    {% else %}
+                        {% if system_slug %}
+                            <a href="?category={{ category.category__slug }}&system={{ system_slug }}">{{ category.category__name }}</a>
+                        {% else %}
+                            <a href="?category={{ category.category__slug }}">{{ category.category__name }}</a>
+                        {% endif %}
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
 
         <h3>Documents</h3>
         <table class="table table-striped">
