@@ -49,11 +49,9 @@
     </div>
 
     <div class="container-fluid">
-            <b>Click on the links to filter the Document List:</b>
-            <br>
         <div class="row">
-        
             <div class="col-md-6">
+                <b>Click on the links to filter by plant system: </b><br>
                 {% if systems %}
                     {% if category_slug %}
                         <a href="/projects/{{ project.slug }}/controlled-documents/?category={{ category_slug }}">Show All</a>
@@ -76,6 +74,7 @@
             {% endif %}
             </div>
             <div class="col-md-6">
+                <b>Click on the links to filter by document category: </b><br>
             {% if categories %}
                 {% if system_slug %}
                     <a href="/projects/{{ project.slug }}/controlled-documents/?system={{ system_slug }}">Show All</a>
