@@ -51,7 +51,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <b>Click on the links to filter by plant system: </b><br>
+                <b>Click on the links to filter by plant system: </b><br><br>
                 {% if systems %}
                     {% if category_slug %}
                         <a href="/projects/{{ project.slug }}/controlled-documents/?category={{ category_slug }}">Show All</a>
@@ -61,7 +61,7 @@
                     <br>
                 {% for system in systems %}
                     {% if system.system__slug == system_slug %}
-                        {{ system.system__name }}
+                        <b style="font-size: 125%">{{ system.system__name }}</b>
                     {% else %}
                         {% if category_slug %}
                             <a href="?category={{ category_slug }}&system={{ system.system__slug }}">{{ system.system__name }}</a>
@@ -74,7 +74,7 @@
             {% endif %}
             </div>
             <div class="col-md-6">
-                <b>Click on the links to filter by document category: </b><br>
+                <b>Click on the links to filter by document category: </b><br><br>
             {% if categories %}
                 {% if system_slug %}
                     <a href="/projects/{{ project.slug }}/controlled-documents/?system={{ system_slug }}">Show All</a>
@@ -84,7 +84,7 @@
                 <br>
                 {% for category in categories %}
                     {% if category.category__slug == category_slug %}
-                        {{ category.category__name }}
+                        <b style="font-size: 125%">{{ category.category__name }}</b>
                     {% else %}
                         {% if system_slug %}
                             <a href="?category={{ category.category__slug }}&system={{ system_slug }}">{{ category.category__name }}</a>
