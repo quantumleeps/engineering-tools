@@ -114,7 +114,7 @@ from xlsxwriter.workbook import Workbook
 def controlled_document_list(request, project_slug):
     contents = {}
     kwargs = {}
-    contents['systems'] = ControlledDocument.objects.order_by().values('system__name', 'system__slug').distinct()
+    contents['systems'] = ControlledDocument.objects.order_by('system__systemNumber').values('system__name', 'system__slug').distinct()
     contents['categories'] = ControlledDocument.objects.order_by().values('category__name', 'category__slug').distinct()
     if request.method == 'GET' and 'system' in request.GET:
         contents['system_slug'] = request.GET['system']
