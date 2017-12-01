@@ -68,14 +68,14 @@ td {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <h5>Category Select</h5>
+                <h5>Category Select (click to filter documents)</h5>
                 {% for category in categories %}
                     {% process_category category category_slug system_slug %}
                 {% endfor %}
                 <a href="?"><b>Reset</b></a><br>
             </div>
             <div class="col-md-6">
-                    <h5>System Select</h5>
+                    <h5>System Select (click to filter documents)</h5>
                     {% for system in systems %}
                         {% process_system system system_slug category_slug %}
                     {% endfor %}
@@ -91,10 +91,10 @@ td {
                     <tr class="row">
                         <th class="col-md-3">Filename</th>
                         <th class="col-md-1">Revision</th>
-                        <th class="col-md-3">Description</th>
-                        <th class="col-md-2">Doc Category</th>
-                        <th class="col-md-1">System</th>
-                        <th class="col-md-2">Doc Type</th>
+                        <th class="col-md-2">Description</th>
+                        <th class="col-md-3">Doc Category</th>
+                        <th class="col-md-2">System</th>
+                        <th class="col-md-1">Doc Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,10 +106,10 @@ td {
                                     {{ doc.drawing_title }}
                                     {% endif %}</td>
                             <td class="col-md-1">{{ doc.revision_number }}</td>
-                            <td class="col-md-3">{{ doc.description }}</td>
-                            <td class="col-md-2">{{ doc.category.name }}</td>
-                            <td class="col-md-1">{{ doc.system.name }}</td>
-                            <td class="col-md-2">{{ doc.released_file_format|default_if_none:"-" }}</td>
+                            <td class="col-md-2">{{ doc.description }}</td>
+                            <td class="col-md-3">{{ doc.category.name }}</td>
+                            <td class="col-md-2">{{ doc.system.name }}</td>
+                            <td class="col-md-1">{{ doc.released_file_format|default_if_none:"-" }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
