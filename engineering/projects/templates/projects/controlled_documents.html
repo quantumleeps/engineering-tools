@@ -38,6 +38,14 @@
     font-size: 12px;
 }
 
+th,
+td {
+    text-align: center;
+}
+
+.table td {
+   text-alig
+
 </style>
 {% load static %}
 
@@ -79,27 +87,32 @@
 <br><br>
         <h3>Documents</h3>
         <table class="table table-striped">
-            <tr>
-                <th class="col-md-2">Filename</th>
-                <th class="col-md-1">Revision</th>
-                <th class="col-md-3">Description</th>
-                <th class="col-md-2">Doc Category</th>
-                <th class="col-md-1">System</th>
-                <th class="col-md-1">Doc Type</th>
-            </tr>
-        {% for doc in controlled_documents %}
-            <tr>
-                <td>{% if doc.share_url %}
-                    <a target="_blank" href="{{ doc.share_url }}">{{ doc.drawing_title }}</a>
-                    {% else %}
-                    {{ doc.drawing_title }}
-                    {% endif %}</td>
-                <td>{{ doc.revision_number }}</td>
-                <td>{{ doc.description }}</td>
-                <td>{{ doc.category.name }}</td>
-                <td>{{ doc.system.name }}</td>
-                <td>{{ doc.released_file_format|default_if_none:"-" }}</td>
-            </tr>
-        {% endfor %}
+                <thead>
+                    <tr class="row">
+                        <th class="col-md-3">Filename</th>
+                        <th class="col-md-1">Revision</th>
+                        <th class="col-md-3">Description</th>
+                        <th class="col-md-2">Doc Category</th>
+                        <th class="col-md-1">System</th>
+                        <th class="col-md-2">Doc Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in controlled_documents %}
+                        <tr class="row">
+                            <td class="col-md-3">{% if doc.share_url %}
+                                    <a target="_blank" href="{{ doc.share_url }}">{{ doc.drawing_title }}</a>
+                                    {% else %}
+                                    {{ doc.drawing_title }}
+                                    {% endif %}</td>
+                            <td class="col-md-1">{{ doc.revision_number }}</td>
+                            <td class="col-md-3">{{ doc.description }}</td>
+                            <td class="col-md-2">{{ doc.category.name }}</td>
+                            <td class="col-md-1">{{ doc.system.name }}</td>
+                            <td class="col-md-2">{{ doc.released_file_format|default_if_none:"-" }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
         </table>
 </div>
+
