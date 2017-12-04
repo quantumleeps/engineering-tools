@@ -158,7 +158,7 @@ class ControlledDocumentHistoryAdmin(SimpleHistoryAdmin):
     list_display = ('description', 'project', 'drawing_title', 'system', 'category', 'released_file_format')
     list_editable = ('released_file_format',)
     history_list_display = ['description', 'project', 'drawing_title']
-    list_filter = ('system', 'category')
+    list_filter = ('project', 'system', 'category')
 
 admin.site.register(DocumentCategory, DocumentCategoryHistoryAdmin)
 admin.site.register(ControlledDocument, ControlledDocumentHistoryAdmin)
