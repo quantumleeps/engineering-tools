@@ -114,8 +114,9 @@ from xlsxwriter.workbook import Workbook
 def controlled_document_list(request, project_slug):
     contents = {}
     kwargs = {}
-    contents['systems'] = ControlledDocument.objects.order_by('system__systemNumber').values('system__name', 'system__slug').distinct()
-    contents['categories'] = ControlledDocument.objects.order_by().values('category__name', 'category__slug').distinct()
+    kwargs['project__slug'] = project_slug
+    contents['systems'] = ControlledDocument.objects.filter(**kwargs).order_by('system__systemNumber').values('system__name', 'system__slug').distinct()
+    contents['categories'] = ControlledDocument.objects.filter(**kwargs).order_by().values('category__name', 'category__slug').distinct()
     if request.method == 'GET' and 'system' in request.GET:
         contents['system_slug'] = request.GET['system']
         kwargs['system__slug'] = contents['system_slug']
@@ -126,7 +127,6 @@ def controlled_document_list(request, project_slug):
         kwargs['category__slug'] = contents['category_slug']
     else:
         pass
-    kwargs['project__slug'] = project_slug
     contents['project'] = get_object_or_404(Project, slug=project_slug)
     contents['project_name'] = contents['project'].name
     contents['controlled_documents'] = ControlledDocument.objects.filter(**kwargs).order_by('system__systemNumber', 'drawing_title')
