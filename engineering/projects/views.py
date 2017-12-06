@@ -114,7 +114,6 @@ from xlsxwriter.workbook import Workbook
 def controlled_document_list(request, project_slug):
     contents = {}
     kwargs = {}
-    kwargs['project__slug'] = project_slug
     contents['systems'] = ControlledDocument.objects.filter(**kwargs).order_by('system__systemNumber').values('system__name', 'system__slug').distinct()
     if contents['systems'].count() < 2:
         contents['systems'] = None
@@ -135,6 +134,7 @@ def controlled_document_list(request, project_slug):
         kwargs['category__slug'] = contents['category_slug']
     else:
         pass
+    kwargs['project__slug'] = project_slug    
     contents['project'] = get_object_or_404(Project, slug=project_slug)
     contents['project_name'] = contents['project'].name
     contents['controlled_documents'] = ControlledDocument.objects.filter(**kwargs).order_by('system__systemNumber', 'drawing_title')

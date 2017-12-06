@@ -51,6 +51,18 @@ td {
 body {
     background-color: rgb(0,0,0);
 }
+#filter-menu {
+    padding: 9px;
+    background-color: rgba(158, 158, 158, 0.411);
+    width: 100%
+}
+
+#filter-bar-message {
+    padding: 10px;
+    font-size: 140%;
+    border: 1px solid black;
+    margin-bottom: 3px;
+}
 </style>
 {% load static %}
 
@@ -67,34 +79,59 @@ body {
                 CWCO Project Engineering <img id="logo_img" src="{% static 'projects/cwco_logo.jpg' %}">
             </div>
         </div>
-    <div class="container">
+
         {% load custom_tags %}
         {% autoescape off %}
-        <div class="container-fluid">
+        <div id="filter-menu" class="container-fluid rounded">
+            <!-- <div id="filter-bar-message" class="text-center container rounded">
+                Hide Filter
+            </div> -->
+            Filter Controlled Document List by:<br>
             <div class="row">
                 <div class="col-md-6">
-                    
                     {% if categories %}
-                    <h5>Category Select (click to filter documents)</h5>
-                    {% for category in categories %}
-                        {% process_category category category_slug system_slug %}
-                    {% endfor %}
-                    <a href="?system={{ system_slug }}"><b>Reset</b></a><br>
+                        <h5 class="text-center"><u>Document Category</u></h5>
+                        {% for category in categories %}
+                            {% process_category category category_slug system_slug %}
+                        {% endfor %}
+                        {% if category_slug %}
+                            {% if system_slug %}
+                                <a href="?system={{ system_slug }}"><b>Show all categories</b></a><br>
+                            {% else %}
+                                <a href="./"><b>Show all categories</b></a><br>
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="col-md-6">
                     {% if systems %}
-                    <h5>System Select (click to filter documents)</h5>
-                    {% for system in systems %}
-                        {% process_system system system_slug category_slug %}
-                    {% endfor %}
-                    <a href="?category={{ category_slug }}"><b>Reset</b></a><br>
+                        <h5 class="text-center"><u>Plant Subsystem</u></h5>
+                        {% for system in systems %}
+                            {% process_system system system_slug category_slug %}
+                        {% endfor %}
+                        {% if system_slug %}
+                            {% if category_slug %}
+                                <a href="?category={{ category_slug }}"><b>Show all systems</b></a><br>
+                            {% else %}
+                                <a href="./"><b>Show all systems</b></a><br>
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
+            <br>
+            <div style="font-size: 80%; padding: 5px; background-color: white" class="container-fluid rounded">
+                Filter color key:<br>
+                <span style="margin-right: 20px;"><span style="color: white; border: 1px solid black; padding: 3px; background-color: #5cb85c">Green</span> = selected option</span>
+                <span style="margin-right: 20px;"><span style="color: white; padding: 3px; background-color: #0275d8">Blue</span> = click to select another option that returns at least one document</span>
+                <span><span style="color: white; border: 1px solid rgb(122,122,122); padding: 3px; background-color: rgb(192,192,192)">Grey</span> = there are no matching documents that would match that query</span>
+            </div>
+
+
+
         </div>
         {% endautoescape %} 
-    </div>
+
 
 <br><br>
     <div class="container">
