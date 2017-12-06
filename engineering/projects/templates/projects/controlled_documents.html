@@ -68,18 +68,24 @@ td {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
+                
+                {% if categories %}
                 <h5>Category Select (click to filter documents)</h5>
                 {% for category in categories %}
                     {% process_category category category_slug system_slug %}
                 {% endfor %}
                 <a href="?"><b>Reset</b></a><br>
+                {% endif %}
             </div>
             <div class="col-md-6">
+                    {% if systems %}
                     <h5>System Select (click to filter documents)</h5>
                     {% for system in systems %}
                         {% process_system system system_slug category_slug %}
                     {% endfor %}
+                    
                     <a href="?"><b>Reset</b></a><br>
+                    {% endif %}
             </div>
         </div>
     </div>

@@ -116,7 +116,15 @@ def controlled_document_list(request, project_slug):
     kwargs = {}
     kwargs['project__slug'] = project_slug
     contents['systems'] = ControlledDocument.objects.filter(**kwargs).order_by('system__systemNumber').values('system__name', 'system__slug').distinct()
+    if contents['systems'].count() < 2:
+        contents['systems'] = None
+    else:
+        pass
     contents['categories'] = ControlledDocument.objects.filter(**kwargs).order_by().values('category__name', 'category__slug').distinct()
+    if contents['categories'].count() < 2:
+        contents['categories'] = None
+    else:
+        pass
     if request.method == 'GET' and 'system' in request.GET:
         contents['system_slug'] = request.GET['system']
         kwargs['system__slug'] = contents['system_slug']
